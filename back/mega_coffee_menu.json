@@ -1,0 +1,6529 @@
+[
+  {
+    "menu_id": 1,
+    "menu_name": "디카페인 아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 2,
+    "menu_name": "디카페인 꿀아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 3,
+    "menu_name": "디카페인 헤이즐넛아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 4,
+    "menu_name": "디카페인 바닐라아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 5,
+    "menu_name": "디카페인 카페라떼",
+    "menu_price": 3900,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "라이트바닐라 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 6,
+    "menu_name": "디카페인 바닐라라떼",
+    "menu_price": 4400,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 7,
+    "menu_name": "디카페인 연유라떼",
+    "menu_price": 4900,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 8,
+    "menu_name": "디카페인 카라멜마끼아또",
+    "menu_price": 4700,
+    "menu_temperature": "HOT",
+    "menu_description": "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 9,
+    "menu_name": "디카페인 카페모카",
+    "menu_price": 4900,
+    "menu_temperature": "HOT",
+    "menu_description": "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 10,
+    "menu_name": "디카페인 카푸치노",
+    "menu_price": 3900,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 카푸치노.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 11,
+    "menu_name": "디카페인 헤이즐넛라떼",
+    "menu_price": 4400,
+    "menu_temperature": "HOT",
+    "menu_description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 12,
+    "menu_name": "디카페인 티라미수라떼",
+    "menu_price": 4900,
+    "menu_temperature": "HOT",
+    "menu_description": "디카페인 에스프레소와 티라미수 소스 & 우유 그리고 풍미를 더해주는 달달한 크림까지 곁들여 완성한 티라미수 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 13,
+    "menu_name": "디카페인 메가리카노",
+    "menu_price": 4500,
+    "menu_temperature": "ICE",
+    "menu_description": "메가MGC커피 디카페인 아메리카노를 '960ml' 더 크고 가볍게 즐길 수 있는 대용량 커피",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 14,
+    "menu_name": "디카페인 아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 15,
+    "menu_name": "디카페인 꿀아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 16,
+    "menu_name": "디카페인 헤이즐넛 아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 17,
+    "menu_name": "디카페인 바닐라 아메리카노",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 18,
+    "menu_name": "디카페인 카페라떼",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "라이트바닐라 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 19,
+    "menu_name": "디카페인 바닐라라떼",
+    "menu_price": 4400,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 20,
+    "menu_name": "디카페인 카라멜마끼아또",
+    "menu_price": 4700,
+    "menu_temperature": "ICE",
+    "menu_description": "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 21,
+    "menu_name": "디카페인 카페모카",
+    "menu_price": 4900,
+    "menu_temperature": "ICE",
+    "menu_description": "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 10,
+            "option_name": "카라멜 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 22,
+    "menu_name": "디카페인 카푸치노",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 카푸치노.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 23,
+    "menu_name": "디카페인 헤이즐넛라떼",
+    "menu_price": 4400,
+    "menu_temperature": "ICE",
+    "menu_description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 24,
+    "menu_name": "디카페인 티라미수라떼",
+    "menu_price": 4900,
+    "menu_temperature": "ICE",
+    "menu_description": "디카페인 에스프레소와 티라미수 소스 & 우유 그리고 풍미를 더해주는 달달한 크림까지 곁들여 완성한 티라미수 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 25,
+    "menu_name": "수박 화채 스무디",
+    "menu_price": 4500,
+    "menu_temperature": "ICE",
+    "menu_description": "달달하고 청량한 수박 스무디 위로 다채로운 과일을 올려낸 수박 화채 스무디",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 26,
+    "menu_name": "코코넛 커피 스무디",
+    "menu_price": 4800,
+    "menu_temperature": "ICE",
+    "menu_description": "바삭하고 고소한 코코넛 칩을 올리고 쌉싸름한 커피와 달콤한 코코넛이 조화로운 스무디",
+    "options": []
+  },
+  {
+    "menu_id": 27,
+    "menu_name": "플레인퐁크러쉬",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "우유에 죠리퐁 씨리얼이 믹싱 된 얼음을 갈아 만든 시원한 프라페음료",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "토핑 추가",
+        "option_details": [
+          {
+            "option_id": 16,
+            "option_name": "허니퐁 시리얼"
+          },
+          {
+            "option_id": 17,
+            "option_name": "폴 시리얼"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 28,
+    "menu_name": "초코허니퐁크러쉬",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "리얼 벌꿀이 들어가 더 달콤한 퍼프허니 시리얼과 부드럽게 달달한 초코가 함께 만드는 즐거운 맛의 프라페.",
+    "options": [
+      {
+        "option_kind": "토핑 추가",
+        "option_details": [
+          {
+            "option_id": 16,
+            "option_name": "허니퐁 시리얼"
+          },
+          {
+            "option_id": 17,
+            "option_name": "폴 시리얼"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 29,
+    "menu_name": "슈크림허니퐁크러쉬",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "바닐라빈 향을 머금은 부드러운 슈크림과 리얼 벌꿀이 들어간 퍼프허니 시리얼을 시원하게 즐기는 프라페.",
+    "options": [
+      {
+        "option_kind": "토핑 추가",
+        "option_details": [
+          {
+            "option_id": 16,
+            "option_name": "허니퐁 시리얼"
+          },
+          {
+            "option_id": 17,
+            "option_name": "폴 시리얼"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 30,
+    "menu_name": "딸기퐁크러쉬",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "바삭하고 달달한 퐁에 상큼한 딸기와 부드러운 우유, 얼음을 함께 블렌딩해 시원하게 즐기는 프라페.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "토핑 추가",
+        "option_details": [
+          {
+            "option_id": 16,
+            "option_name": "허니퐁 시리얼"
+          },
+          {
+            "option_id": 17,
+            "option_name": "폴 시리얼"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 31,
+    "menu_name": "바나나퐁크러쉬",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "바삭하고 달달한 퐁에 부드러운 바나나와 우유, 얼음을 함께 블렌딩해 부드럽고 시원하게 즐기는 프라페.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "토핑 추가",
+        "option_details": [
+          {
+            "option_id": 16,
+            "option_name": "허니퐁 시리얼"
+          },
+          {
+            "option_id": 17,
+            "option_name": "폴 시리얼"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 32,
+    "menu_name": "스모어블랙쿠키프라페",
+    "menu_price": 4400,
+    "menu_temperature": "ICE",
+    "menu_description": "진한 초코스무디에 바삭한 쿠키를 넣어 퐁신퐁신한 마시멜로우 잼과 함께 달콤하게 즐기는 스무디",
+    "options": []
+  },
+  {
+    "menu_id": 33,
+    "menu_name": "쿠키프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "바삭하고 달콤한 오레오와 고소한 우유, 부드러운 바닐라향의 조화를 느낄 수 있는 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 34,
+    "menu_name": "딸기쿠키프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "부드러운 바닐라와 달달한 딸기, 바삭한 오레오 쿠키가 달콤한 하모니를 선물하는 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 35,
+    "menu_name": "민트프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "상쾌한 민트에 달콤하게 씹는 재미를 더한 초콜릿칩의 즐거운 하모니가 매력적인 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 36,
+    "menu_name": "커피프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "바삭한 쿠키와 부드러운 바닐라에 향긋한 에스프레소를 섞어 만든 힐링 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 37,
+    "menu_name": "리얼초코프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "진한 초코소스와 부드러운 바닐라향의 만남으로 질리지 않는 달콤함을 완성한 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 38,
+    "menu_name": "녹차프라페",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "향긋한 녹차 위에 우유와 휘핑크림을 더해 더 부드럽게 즐길 수 있는 프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 39,
+    "menu_name": "유니콘프라페",
+    "menu_price": 4800,
+    "menu_temperature": "ICE",
+    "menu_description": "다채로운 비주얼로 보는 즐거움을 채우고, 달콤함과 상큼함 색깔마다 달라지는 유쾌한 맛까지 잡은 이색프라페.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 40,
+    "menu_name": "스트로베리치즈홀릭",
+    "menu_price": 4500,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼한 딸기 요거트 스무디 위에 고급스런 맛의 치즈케이크가 듬뿍 올라가 먹는 재미를 배가한 스무디.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 41,
+    "menu_name": "플레인요거트스무디",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "더 시원하게 요거트의 새콤달콤한 맛을 오롯이 만끽할 수 있는 스무디.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 42,
+    "menu_name": "딸기요거트스무디",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "요거트의 상큼함과 딸기의 상큼함을 상냥하게 어우른 상큼 스무디.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 43,
+    "menu_name": "망고요거트스무디",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "열대과일 망고의 진한 단 맛과 산뜻한 요거트의 하모니가 인상적인 스무디.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 44,
+    "menu_name": "수박 주스",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "돌아온 여름시즌 베스트셀러! 달달하고 시원한 메가MGC커피 만의 수박주스",
+    "options": []
+  },
+  {
+    "menu_id": 45,
+    "menu_name": "레드오렌지자몽주스",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "엄선된 시칠리아 레드오렌지와 자몽이 만난 상큼한 주스에 프로바이오틱스를 더해 건강한 블렌딩 주스",
+    "options": []
+  },
+  {
+    "menu_id": 46,
+    "menu_name": "샤인머스켓그린주스",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "달콤한 샤인머스캣과 케일이 만난 싱그러운 주스에 칼슘을 더해 건강한 블렌딩 주스",
+    "options": []
+  },
+  {
+    "menu_id": 47,
+    "menu_name": "딸기주스",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "새콤달콤한 딸기주스에 피쉬 콜라겐을 더해 건강한 블렌딩 주스",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 48,
+    "menu_name": "딸기바나나주스",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼한 딸기와 부드러운 바나나가 만나, 새콤달콤한 매력이 살아 있는 과일 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 49,
+    "menu_name": "메가에이드",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼한 딸기와 부드러운 바나나가 만나, 새콤달콤한 매력이 살아 있는 과일 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 50,
+    "menu_name": "레몬에이드",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "시트러스향 가득한 레몬의 상큼함과 톡쏘는 탄산의 상쾌함이 만난 청량 에이드.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 51,
+    "menu_name": "블루레몬에이드",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "레몬에이드의 상큼한 청량감에 블루큐라소의 진한 향미를 더한 에이드.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 52,
+    "menu_name": "자몽에이드",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "자몽의 달콤쌉싸름한 맛과 탄산의 톡쏘는 목넘김이 어우러진 트로피컬 에이드.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 53,
+    "menu_name": "청포도에이드",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "산뜻한 청포도와 상쾌한 탄산의 달달한 조화가 인상적인 에이드.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 54,
+    "menu_name": "유니콘매직에이드(블루)",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "섞으면 마법처럼 색이 변하는 재미에 라임의 청량함으로 입까지 즐거운 이색 에이드.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 55,
+    "menu_name": "유니콘매직에이드(핑크)",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "섞으면 마법처럼 색이 변하는 재미에 레몬의 상큼함으로 입까지 즐거운 이색 에이드.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 56,
+    "menu_name": "체리콕",
+    "menu_price": 3300,
+    "menu_temperature": "ICE",
+    "menu_description": "체리의 새콤함과 청량감을 동시에 즐길 수 있는 환상적인 에이드.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 57,
+    "menu_name": "라임모히또",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼한 라임과 달콤한 향기의 애플민트가 어우러져 상쾌함을 한잔에 가득 채운 모히또 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "제로사이다 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 18,
+            "option_name": "제로 사이다"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 58,
+    "menu_name": "딸기라떼",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "산뜻하고 달콤한 딸기가 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 59,
+    "menu_name": "아이스초코",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 초콜릿 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 60,
+    "menu_name": "오레오초코라떼",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "진한 초코와 리얼 오레오를 블렌딩해 씹는 맛을 더한 달콤한 아이스 라떼.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 61,
+    "menu_name": "메가초코",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 62,
+    "menu_name": "녹차라떼",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 63,
+    "menu_name": "곡물라떼",
+    "menu_price": 3000,
+    "menu_temperature": "ICE",
+    "menu_description": "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 64,
+    "menu_name": "고구마라떼",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 65,
+    "menu_name": "토피넛라떼",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 66,
+    "menu_name": "로얄밀크티라떼",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "우유와 은은한 홍차가 어우러져 부드럽고 향긋한 한 모금을 완성한 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 67,
+    "menu_name": "흑당라떼",
+    "menu_price": 3300,
+    "menu_temperature": "ICE",
+    "menu_description": "모리셔스의 진한 흑당과 부드러운 우유가 달콤하게 조화를 이루는 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 68,
+    "menu_name": "흑당밀크티라떼",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "타바론 얼그레이 홍차의 깊은 맛을 살린 일크티 라떼에 진한 흑당의 달콤함을 채운 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 69,
+    "menu_name": "흑당버블라떼",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "모리셔스의 진한 흑당과 부드러운 우유가 달콤한 조화에 흑당 버블을 함께 즐기는 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 70,
+    "menu_name": "흑당버블밀크티라떼",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "타바론 얼그레이 홍차의 깊은 맛을 살린 일크티 라떼에 진한 흑당과 흑당 버블의 달콤함을 채운 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 71,
+    "menu_name": "핫초코",
+    "menu_price": 3500,
+    "menu_temperature": "HOT",
+    "menu_description": "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 초콜릿 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 72,
+    "menu_name": "메가초코",
+    "menu_price": 3800,
+    "menu_temperature": "HOT",
+    "menu_description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 73,
+    "menu_name": "로얄밀크티라떼",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 74,
+    "menu_name": "녹차라떼",
+    "menu_price": 3500,
+    "menu_temperature": "HOT",
+    "menu_description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 75,
+    "menu_name": "고구마라떼",
+    "menu_price": 3500,
+    "menu_temperature": "HOT",
+    "menu_description": "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 76,
+    "menu_name": "곡물라떼",
+    "menu_price": 3000,
+    "menu_temperature": "HOT",
+    "menu_description": "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 77,
+    "menu_name": "토피넛라떼",
+    "menu_price": 3800,
+    "menu_temperature": "HOT",
+    "menu_description": "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          },
+          {
+            "option_id": 5,
+            "option_name": "디카페인 샷 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 78,
+    "menu_name": "콜드브루오리지널",
+    "menu_price": 3500,
+    "menu_temperature": "HOT",
+    "menu_description": "차가운 물에 장시간 우려내 깔끔한 목넘김을 느낄 수 있는 콜드브루.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 79,
+    "menu_name": "콜드브루라떼",
+    "menu_price": 4000,
+    "menu_temperature": "HOT",
+    "menu_description": "콜드브루에 고소한 우유를 섞어, 깔끔함과 부드러움을 잡은 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 80,
+    "menu_name": "콜드브루오리지널",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "차가운 물에 장시간 우려내 깔끔한 목넘김을 느낄 수 있는 콜드브루.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 81,
+    "menu_name": "콜드브루라떼",
+    "menu_price": 4000,
+    "menu_temperature": "ICE",
+    "menu_description": "콜드브루에 고소한 우유를 섞어, 깔끔함과 부드러움을 잡은 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 82,
+    "menu_name": "콜드브루 디카페인",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 콜드브루 디카페인",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 83,
+    "menu_name": "콜드브루 디카페인",
+    "menu_price": 4000,
+    "menu_temperature": "HOT",
+    "menu_description": "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 콜드브루 디카페인",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 84,
+    "menu_name": "콜드브루 디카페인라떼",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "고소한 우유를 섞어, 커피향에 부드러운 풍미를 가미한 콜드브루 디카페인 라떼",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 85,
+    "menu_name": "콜드브루 디카페인라떼",
+    "menu_price": 4000,
+    "menu_temperature": "HOT",
+    "menu_description": "고소한 우유를 섞어, 커피향에 부드러운 풍미를 가미한 콜드브루 디카페인 라떼",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 86,
+    "menu_name": "아메리카노",
+    "menu_price": 1500,
+    "menu_temperature": "HOT",
+    "menu_description": "메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 87,
+    "menu_name": "꿀아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 88,
+    "menu_name": "헤이즐넛아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 89,
+    "menu_name": "바닐라아메리카노",
+    "menu_price": 2700,
+    "menu_temperature": "HOT",
+    "menu_description": "아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 90,
+    "menu_name": "카페라떼",
+    "menu_price": 2900,
+    "menu_temperature": "HOT",
+    "menu_description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "라이트바닐라 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 91,
+    "menu_name": "바닐라라떼",
+    "menu_price": 3400,
+    "menu_temperature": "HOT",
+    "menu_description": "바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 92,
+    "menu_name": "연유라떼",
+    "menu_price": 3900,
+    "menu_temperature": "HOT",
+    "menu_description": "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 93,
+    "menu_name": "카라멜마끼야또",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          },
+          {
+            "option_id": 10,
+            "option_name": "카라멜 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 94,
+    "menu_name": "카페모카",
+    "menu_price": 3900,
+    "menu_temperature": "HOT",
+    "menu_description": "초코를 만나 풍부해진 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 95,
+    "menu_name": "카푸치노",
+    "menu_price": 2900,
+    "menu_temperature": "HOT",
+    "menu_description": "에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 96,
+    "menu_name": "헤이즐넛라떼",
+    "menu_price": 3400,
+    "menu_temperature": "HOT",
+    "menu_description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 97,
+    "menu_name": "티라미수라떼",
+    "menu_price": 3900,
+    "menu_temperature": "HOT",
+    "menu_description": "에스프레소와 티라미수 소스 & 우유 그리고 풍미를 더해주는 달달한 크림까지 곁들여 완성한 티라미수 라떼.",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 98,
+    "menu_name": "메가리카노",
+    "menu_price": 3000,
+    "menu_temperature": "ICE",
+    "menu_description": "깊고 진한 메가MGC커피 아메리카노를 '960ml' 더 큼직하게 즐길 수 있는 대용량 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 99,
+    "menu_name": "아메리카노",
+    "menu_price": 2000,
+    "menu_temperature": "ICE",
+    "menu_description": "메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 100,
+    "menu_name": "꿀아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 101,
+    "menu_name": "헤이즐넛아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 102,
+    "menu_name": "바닐라아메리카노",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 103,
+    "menu_name": "큐브라떼",
+    "menu_price": 4200,
+    "menu_temperature": "ICE",
+    "menu_description": "연유를 섞은 라떼에 에스프레소를 얼린 커피큐브를 올려, 녹을수록 더 진한 커피가 느껴지는 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 104,
+    "menu_name": "카페라떼",
+    "menu_price": 2900,
+    "menu_temperature": "ICE",
+    "menu_description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "라이트바닐라 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 105,
+    "menu_name": "바닐라라떼",
+    "menu_price": 3400,
+    "menu_temperature": "ICE",
+    "menu_description": "바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 6,
+            "option_name": "바닐라시럽 추가"
+          },
+          {
+            "option_id": 7,
+            "option_name": "라이트바닐라 시럽 변경"
+          },
+          {
+            "option_id": 8,
+            "option_name": "라이트바닐라 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 106,
+    "menu_name": "카라멜마끼아또",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          },
+          {
+            "option_id": 10,
+            "option_name": "카라멜 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 107,
+    "menu_name": "카페모카",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "초코를 만나 풍부해진 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 108,
+    "menu_name": "카푸치노",
+    "menu_price": 2700,
+    "menu_temperature": "ICE",
+    "menu_description": "에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "시럽 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 12,
+            "option_name": "스테비아 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 109,
+    "menu_name": "헤이즐넛라떼",
+    "menu_price": 3400,
+    "menu_temperature": "ICE",
+    "menu_description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 9,
+            "option_name": "헤이즐넛 시럽 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 110,
+    "menu_name": "티라미수라떼",
+    "menu_price": 3900,
+    "menu_temperature": "ICE",
+    "menu_description": "에스프레소와 티라미수 소스 & 우유 그리고 풍미를 더해주는 달달한 크림까지 곁들여 완성한 티라미수 라떼.",
+    "options": [
+      {
+        "option_kind": "시나몬",
+        "option_details": [
+          {
+            "option_id": 21,
+            "option_name": "시나몬 유"
+          },
+          {
+            "option_id": 22,
+            "option_name": "시나몬 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "휘핑 크림",
+        "option_details": [
+          {
+            "option_id": 19,
+            "option_name": "휘핑 유"
+          },
+          {
+            "option_id": 20,
+            "option_name": "휘핑 무"
+          }
+        ]
+      },
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "우유 선택",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 13,
+            "option_name": "아몬드밀크 변경"
+          },
+          {
+            "option_id": 14,
+            "option_name": "오트밀크 변경"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 111,
+    "menu_name": "트로피컬 용과 티플레져",
+    "menu_price": 3800,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼 달콤한 트로피컬 과일, 강렬한 레드 용과 에이드에 아식한 알로에 펄이 들어간 그린티 베이스의 티플레저",
+    "options": []
+  },
+  {
+    "menu_id": 112,
+    "menu_name": "복숭아아이스티",
+    "menu_price": 3000,
+    "menu_temperature": "ICE",
+    "menu_description": "홍차의 깊은 맛과 풍부한 복숭아 향이 어우러진 달콤한 여름철 인기 음료",
+    "options": [
+      {
+        "option_kind": "샷",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 2,
+            "option_name": "연하게"
+          },
+          {
+            "option_id": 3,
+            "option_name": "샷 추가"
+          },
+          {
+            "option_id": 4,
+            "option_name": "2샷추가"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 113,
+    "menu_name": "허니자몽블랙티",
+    "menu_price": 3700,
+    "menu_temperature": "ICE",
+    "menu_description": "달콤한 꿀청에 재운 자몽에 홍차의 부드러움을 어우른 상큼한 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 114,
+    "menu_name": "사과유자차",
+    "menu_price": 3500,
+    "menu_temperature": "ICE",
+    "menu_description": "애플티의 향긋함과 유자청의 상큼달콤함을 한컵에 담아낸 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 115,
+    "menu_name": "유자차",
+    "menu_price": 3300,
+    "menu_temperature": "ICE",
+    "menu_description": "비타민이 가득 든 상큼달콤한 유자를 듬뿍 넣어 향긋한 즐거움을 전하는 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 116,
+    "menu_name": "레몬차",
+    "menu_price": 3300,
+    "menu_temperature": "ICE",
+    "menu_description": "상큼한 레몬의 맛과 향을 오롯이 살린 비타민C 가득한 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 117,
+    "menu_name": "자몽차",
+    "menu_price": 3300,
+    "menu_temperature": "ICE",
+    "menu_description": "달콤쌉싸름한 자몽의 조화로운 맛을 한 잔 가득 느낄 수 있는 과일티.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 118,
+    "menu_name": "녹차",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 119,
+    "menu_name": "페퍼민트",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 120,
+    "menu_name": "캐모마일",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "마음을 진정 시켜주는 산뜻한 풀내음을 느낄 수 있는 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 121,
+    "menu_name": "얼그레이",
+    "menu_price": 2500,
+    "menu_temperature": "ICE",
+    "menu_description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 122,
+    "menu_name": "허니자몽블랙티",
+    "menu_price": 3700,
+    "menu_temperature": "HOT",
+    "menu_description": "달콤한 꿀청에 재운 자몽에 홍차의 부드러움을 어우른 상큼한 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 123,
+    "menu_name": "사과유자차",
+    "menu_price": 3500,
+    "menu_temperature": "HOT",
+    "menu_description": "애플티의 향긋함과 유자청의 상큼달콤함을 한컵에 담아낸 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 124,
+    "menu_name": "유자차",
+    "menu_price": 3300,
+    "menu_temperature": "HOT",
+    "menu_description": "비타민이 가득 든 상큼달콤한 유자를 듬뿍 넣어 향긋한 즐거움을 전하는 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 125,
+    "menu_name": "레몬차",
+    "menu_price": 3300,
+    "menu_temperature": "HOT",
+    "menu_description": "상큼한 레몬의 맛과 향을 오롯이 살린 비타민C 가득한 과일티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 126,
+    "menu_name": "자몽차",
+    "menu_price": 3300,
+    "menu_temperature": "HOT",
+    "menu_description": "달콤쌉싸름한 자몽의 조화로운 맛을 한 잔 가득 느낄 수 있는 과일티.",
+    "options": [
+      {
+        "option_kind": "스테비아 변경",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 11,
+            "option_name": "스테비아 변경"
+          }
+        ]
+      },
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 127,
+    "menu_name": "녹차",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 128,
+    "menu_name": "페퍼민트",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 129,
+    "menu_name": "캐모마일",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "마음을 진정 시켜주는 산뜻한 풀내음을 느낄 수 있는 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 130,
+    "menu_name": "얼그레이",
+    "menu_price": 2500,
+    "menu_temperature": "HOT",
+    "menu_description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티.",
+    "options": [
+      {
+        "option_kind": "꿀 추가",
+        "option_details": [
+          {
+            "option_id": 1,
+            "option_name": "선택x"
+          },
+          {
+            "option_id": 15,
+            "option_name": "꿀 추가"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "menu_id": 131,
+    "menu_name": "첨벙첨벙간식꾸러미",
+    "menu_price": 3900,
+    "menu_temperature": "-",
+    "menu_description": "핫도그 보물섬을 찾아서 생크림 오믈렛 파도를 헤엄치는 커스타드맛 상어로 구성 된 여름 간식 꾸러미",
+    "options": []
+  },
+  {
+    "menu_id": 132,
+    "menu_name": "오레오초코퐁파르페",
+    "menu_price": 4400,
+    "menu_temperature": "-",
+    "menu_description": "진한 초코 스무디에 바삭바삭한 허니 퐁시리얼, 리얼 오레오와 아이스크림을 올려 낸 파르페",
+    "options": []
+  },
+  {
+    "menu_id": 133,
+    "menu_name": "딸기크림퐁파르페",
+    "menu_price": 4400,
+    "menu_temperature": "-",
+    "menu_description": "달콤한 딸기 요거트 스무디에 바삭바삭한 허니 퐁시리얼, 이탈리아 과자 보노미 글라사떼와 아이스크림을 올려 낸 파르페",
+    "options": []
+  },
+  {
+    "menu_id": 134,
+    "menu_name": "그레놀라스모어쿠키",
+    "menu_price": 2900,
+    "menu_temperature": "-",
+    "menu_description": "그래놀라가 콕콕 박힌 통곡물 쿠키에 달콤하게 구운 마시멜로우가 만나 더욱 건강한 쿠키",
+    "options": []
+  },
+  {
+    "menu_id": 135,
+    "menu_name": "크로크무슈",
+    "menu_price": 3800,
+    "menu_temperature": "-",
+    "menu_description": "고소한 식빵 사이에 햄과 치즈를 샌드하고, 빵 윗면에 멜팅치즈를 토핑해 든든한 한끼를 선물하는 샌드위치.",
+    "options": []
+  },
+  {
+    "menu_id": 136,
+    "menu_name": "미트파이",
+    "menu_price": 4400,
+    "menu_temperature": "-",
+    "menu_description": "풍미 가득한 치즈와 바비큐 소스로 맛을 낸 소고기를 듬뿍 담은 미트파이",
+    "options": []
+  },
+  {
+    "menu_id": 137,
+    "menu_name": "버터버터소금빵",
+    "menu_price": 3200,
+    "menu_temperature": "-",
+    "menu_description": "고소한 프랑스산 프레지덩 버터를 듬뿍넣어 더 부드럽고 짭쪼롬하게 즐길 수 있는 베이커리 메뉴",
+    "options": []
+  },
+  {
+    "menu_id": 138,
+    "menu_name": "제주당근에그마요샌드위치",
+    "menu_price": 3400,
+    "menu_temperature": "-",
+    "menu_description": "제주 당근과 에그마요를 품은 간편하고 든든한 한 손 샌드위치.",
+    "options": []
+  },
+  {
+    "menu_id": 139,
+    "menu_name": "허니버터피자",
+    "menu_price": 5100,
+    "menu_temperature": "-",
+    "menu_description": "이탈리아산 듀럼밀을 사용한 쫄깃한 도우에 버터, 모짜렐라 치즈, 꿀을 더해 든든하게 만든 단짠단짠 허니버터 피자",
+    "options": []
+  },
+  {
+    "menu_id": 140,
+    "menu_name": "마르게리타피자",
+    "menu_price": 5400,
+    "menu_temperature": "-",
+    "menu_description": "이탈리아산 듀럼밀을 사용한 쫄깃한 도우에 토마토소스, 모짜렐라 치즈 바질을 더해 든든하게 만든 풍미가득 마르게리타 피자",
+    "options": []
+  },
+  {
+    "menu_id": 141,
+    "menu_name": "경산대추과즐",
+    "menu_price": 1900,
+    "menu_temperature": "-",
+    "menu_description": "경산 대추와 우리 밀을 넣은 달콤 쫀득한 피에 국내산 조청과 쌀 튀밥을 입혀 바삭하게 구운 한과",
+    "options": []
+  },
+  {
+    "menu_id": 142,
+    "menu_name": "장수사과비건젤리",
+    "menu_price": 1900,
+    "menu_temperature": "-",
+    "menu_description": "전라북도 장수 고원에서 자란 사과를 품은 말랑 촉촉한 동물 모양 비건 젤리",
+    "options": []
+  },
+  {
+    "menu_id": 143,
+    "menu_name": "햄앤치즈샌드",
+    "menu_price": 2000,
+    "menu_temperature": "-",
+    "menu_description": "햄과 치즈의 조화로운 한끼를 만끽할 수 있는 메가커피 샌드위치.",
+    "options": []
+  },
+  {
+    "menu_id": 144,
+    "menu_name": "아이스허니와앙슈",
+    "menu_price": 2400,
+    "menu_temperature": "-",
+    "menu_description": "꿀을 섞은 크림을 바삭한 쿠키슈 안에 넣어, 건강하고 맛있게 완성한 디저트.",
+    "options": []
+  },
+  {
+    "menu_id": 145,
+    "menu_name": "몽쉘케이크",
+    "menu_price": 5300,
+    "menu_temperature": "-",
+    "menu_description": "진하고 폭신한 초콜릿 스펀지 사이에 부드러운 생크림이 듬뿍 들어간 몽쉘 케이크.",
+    "options": []
+  },
+  {
+    "menu_id": 146,
+    "menu_name": "말차스모어쿠키",
+    "menu_price": 2900,
+    "menu_temperature": "-",
+    "menu_description": "화이트 초코칩이 가득 박힌 말차 쿠키에 달콤하게 구운 마시멜로우를 얹어 달콤쌉싸름한 매력을 간직한 쿠키.",
+    "options": []
+  },
+  {
+    "menu_id": 147,
+    "menu_name": "초코스모어쿠키",
+    "menu_price": 2900,
+    "menu_temperature": "-",
+    "menu_description": "초코칩이 콕콕 박힌 촉촉한 초코 쿠키에 달콤하게 구운 마시멜로우가 만나 더 진한 초코 맛 쿠키.",
+    "options": []
+  },
+  {
+    "menu_id": 148,
+    "menu_name": "감자빵",
+    "menu_price": 3500,
+    "menu_temperature": "-",
+    "menu_description": "쫄깃한 빵 속 포슬포슬한 감자를 가득 담아낸 베이커리 메뉴.",
+    "options": []
+  },
+  {
+    "menu_id": 149,
+    "menu_name": "유니콘프라페마카롱",
+    "menu_price": 2100,
+    "menu_temperature": "-",
+    "menu_description": "메가커피 인기 음료인 유니콘 프라페를 모티브로 만든 매지컬 비주얼 마카롱.",
+    "options": []
+  },
+  {
+    "menu_id": 150,
+    "menu_name": "쿠키프라페마카롱",
+    "menu_price": 2100,
+    "menu_temperature": "-",
+    "menu_description": "메가커피 인기메뉴인 쿠키프라페를 모티브로 만든 달콤한 마카롱.",
+    "options": []
+  },
+  {
+    "menu_id": 151,
+    "menu_name": "메가초코마카롱",
+    "menu_price": 2100,
+    "menu_temperature": "-",
+    "menu_description": "메가커피 시그니처 음료 메가초코를 모티브로 만든 초코맛 마카롱.",
+    "options": []
+  },
+  {
+    "menu_id": 152,
+    "menu_name": "딸기요거트마카롱",
+    "menu_price": 2100,
+    "menu_temperature": "-",
+    "menu_description": "딸기요거트 스무디를 연상하게 하는 상큼한 마카롱.",
+    "options": []
+  },
+  {
+    "menu_id": 153,
+    "menu_name": "치즈케익",
+    "menu_price": 3500,
+    "menu_temperature": "-",
+    "menu_description": "진한 치즈의 맛을 달콤하고 부드럽게 느낄 수 있는 케이크.",
+    "options": []
+  },
+  {
+    "menu_id": 154,
+    "menu_name": "초코케익",
+    "menu_price": 3500,
+    "menu_temperature": "-",
+    "menu_description": "달콤한 초콜릿 본연의 맛을 더 진하게 느낄 수 있는 케이크.",
+    "options": []
+  },
+  {
+    "menu_id": 155,
+    "menu_name": "티라미수케익",
+    "menu_price": 3500,
+    "menu_temperature": "-",
+    "menu_description": "부드러운 치즈 맛과 코코아의 조화로운 향으로 호불호 없이 즐기는 케이크.",
+    "options": []
+  },
+  {
+    "menu_id": 156,
+    "menu_name": "허니브레드",
+    "menu_price": 4500,
+    "menu_temperature": "-",
+    "menu_description": "바삭하고 쫄깃하게 구워낸 빵에 달콤한 크림을 올려 즐기는 조화로운 베이커리 메뉴.",
+    "options": []
+  },
+  {
+    "menu_id": 157,
+    "menu_name": "핫도그",
+    "menu_price": 2700,
+    "menu_temperature": "-",
+    "menu_description": "부드러운 빵 속에 쫄깃한 소시지를 넣어 알찬 한입을 완성한 베이커리 메뉴.",
+    "options": []
+  },
+  {
+    "menu_id": 158,
+    "menu_name": "메가쿠기(초코칩)",
+    "menu_price": 2000,
+    "menu_temperature": "-",
+    "menu_description": "진한 초콜릿칩을 넣어 만든 메가MGC커피 시그니처 쿠키.",
+    "options": []
+  },
+  {
+    "menu_id": 159,
+    "menu_name": "메가쿠키(마카다미아)",
+    "menu_price": 2000,
+    "menu_temperature": "-",
+    "menu_description": "고소한 마카다미아를 넣어 만든 메가MGC커피 시그니처 쿠키.",
+    "options": []
+  },
+  {
+    "menu_id": 160,
+    "menu_name": "플레인크로플",
+    "menu_price": 2500,
+    "menu_temperature": "-",
+    "menu_description": "버터풍미가 가득한 크루와상의 바삭함과 와플의 부드러움을 합친 겉바속촉 베이커리 메뉴.",
+    "options": []
+  },
+  {
+    "menu_id": 161,
+    "menu_name": "아이스크림크로플",
+    "menu_price": 3500,
+    "menu_temperature": "-",
+    "menu_description": "따뜻하고 바삭한 크로플 위에 차갑고 달콤한 바닐라 아이스크림을 올려 만든 매력적인 베이커리 메뉴.",
+    "options": []
+  }
+]
