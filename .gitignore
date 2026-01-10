@@ -1,1 +1,12 @@
+# 용량이 크고 다시 설치 가능한 의존성 폴더
+node_modules/
+dist/
+build/
+
+# 보안 키가 들어있는 파일 (절대 공개 금지)
 .env
+.env.local
+
+# 맥/윈도우 시스템 파일
+.DS_Store
+Thumbs.db
