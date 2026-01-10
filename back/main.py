@@ -46,10 +46,22 @@ from google import genai
 from google.genai import types
 
 # 1. 환경 변수 로드
-load_dotenv()
+# 프로젝트 루트 디렉토리의 .env 파일 찾기
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, ".."))
+env_path = os.path.join(root_dir, ".env")
+
+# .env 파일이 있으면 해당 경로에서 로드, 없으면 기본 동작
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+else:
+    load_dotenv()  # 현재 디렉토리에서 찾기 시도
+
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
+    print(f"⚠️ 경고: .env 파일을 찾을 수 없습니다. (시도한 경로: {env_path})")
+    print("💡 프로젝트 루트 디렉토리에 .env 파일을 생성하고 GEMINI_API_KEY를 설정하세요.")
     sys.exit("❌ 오류: .env 파일에 GEMINI_API_KEY가 없습니다.")
 
 # 2. 오디오 설정 (Gemini Live API 표준)
@@ -62,6 +74,7 @@ CHUNK = 512
 latest_face_data = None
 face_data_lock = threading.Lock()
 kiosk_socket = None
+socket_lock = threading.Lock()
 
 
 # ------------------------------------------------------------------
@@ -136,18 +149,27 @@ def add_order_to_kiosk(menu_name: str):
             current_face = latest_face_data[:] 
     
     # 2. 로그 저장
-    save_order_log(menu_name, current_face)
+    try:
+        save_order_log(menu_name, current_face)
+    except Exception as e:
+        print(f"   └─ ⚠️ 로그 저장 실패: {e}")
     
     # 3. 키오스크 전송
     msg = "주문 실패 (연결 없음)"
-    if kiosk_socket:
-        try:
-            print(f"   └─ 📡 키오스크 전송: {menu_name}")
-            kiosk_socket.sendall(menu_name.encode('utf-8'))
-            msg = "주문 성공"
-        except Exception as e:
-            print(f"   └─ ❌ 전송 실패: {e}")
-            pass
+    with socket_lock:
+        if kiosk_socket:
+            try:
+                print(f"   └─ 📡 키오스크 전송: {menu_name}")
+                kiosk_socket.sendall(menu_name.encode('utf-8'))
+                msg = "주문 성공"
+            except Exception as e:
+                print(f"   └─ ❌ 전송 실패: {e}")
+                # 연결이 끊어진 경우 소켓 초기화
+                try:
+                    kiosk_socket.close()
+                except:
+                    pass
+                kiosk_socket = None
     
     # Live API에서는 결과값을 딕셔너리(JSON) 형태로 반환해야 함
     return {"result": msg, "menu": menu_name}
@@ -209,8 +231,10 @@ def camera_thread_func():
 #   4. Task Group -> Send Audio(말하기) / Receive Audio(듣기) 동시 실행
 # ------------------------------------------------------------------
 async def audio_loop():
-    # [1] 메뉴 데이터 로드
-    menu_data = load_menu_data('mega_coffee_menu.json')
+    # [1] 메뉴 데이터 로드 (절대 경로 사용)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    menu_file_path = os.path.join(current_dir, 'mega_coffee_menu.json')
+    menu_data = load_menu_data(menu_file_path)
     
     # [2] 시스템 프롬프트 설정
     system_instruction = f"""
@@ -229,23 +253,25 @@ async def audio_loop():
     print("\n🎧 [System] Gemini Live 연결 시도 중...")
 
     # [4] Gemini Live 세션 시작
+    config = types.LiveConnectConfig(
+        response_modalities=["AUDIO"], 
+        system_instruction=types.Content(parts=[types.Part(text=system_instruction)]),
+        tools=[types.Tool(function_declarations=[
+            types.FunctionDeclaration(
+                name="add_order_to_kiosk",
+                description="손님이 메뉴를 주문하면 실행합니다.",
+                parameters=types.Schema(
+                    type="OBJECT",
+                    properties={"menu_name": types.Schema(type="STRING")},
+                    required=["menu_name"]
+                )
+            )
+        ])]
+    )
+    
     async with client.aio.live.connect(
         model="gemini-2.0-flash-exp",
-        config=types.LiveConnectConfig(
-            response_modalities=["AUDIO"], 
-            system_instruction=types.Content(parts=[types.Part(text=system_instruction)]),
-            tools=[types.Tool(function_declarations=[
-                types.FunctionDeclaration(
-                    name="add_order_to_kiosk",
-                    description="손님이 메뉴를 주문하면 실행합니다.",
-                    parameters=types.Schema(
-                        type="OBJECT",
-                        properties={"menu_name": types.Schema(type="STRING")},
-                        required=["menu_name"]
-                    )
-                )
-            ])]
-        )
+        config=config
     ) as session:
         print("✅ [Connected] 대화 시작! 말씀하세요.")
 
@@ -254,63 +280,176 @@ async def audio_loop():
             while True:
                 try:
                     data = await asyncio.to_thread(mic_stream.read, CHUNK, exception_on_overflow=False)
-                    await session.send(input={"data": data, "mime_type": "audio/pcm"}, end_of_turn=False)
+                    if data:
+                        await session.send(input={"data": data, "mime_type": "audio/pcm"}, end_of_turn=False)
                 except Exception as e:
-                    print(f"Mic Error: {e}")
+                    print(f"❌ [Send Audio Error] {e}")
                     break
 
         # --- Task B: AI 응답 수신 및 도구 처리 ---
         async def receive_audio():
             while True:
-                async for response in session.receive():
-                    # B-1. 오디오 데이터 재생
-                    if response.server_content and response.server_content.model_turn:
-                        for part in response.server_content.model_turn.parts:
-                            if part.inline_data:
-                                await asyncio.to_thread(spk_stream.write, part.inline_data.data)
-                    
-                    # B-2. 도구 호출(Function Calling) 처리
-                    if response.tool_call:
-                        for fc in response.tool_call.function_calls:
-                            if fc.name == "add_order_to_kiosk":
-                                result = add_order_to_kiosk(fc.args["menu_name"])
-                                # 결과를 AI에게 반환
-                                await session.send(input=types.LiveClientToolResponse(
-                                    function_responses=[types.FunctionResponse(
-                                        name=fc.name, id=fc.id, response=result
-                                    )]
-                                ))
+                try:
+                    async for response in session.receive():
+                        # B-1. 오디오 데이터 재생
+                        if response.server_content and response.server_content.model_turn:
+                            for part in response.server_content.model_turn.parts:
+                                if hasattr(part, 'inline_data') and part.inline_data:
+                                    audio_data = part.inline_data.data
+                                    if audio_data:
+                                        await asyncio.to_thread(spk_stream.write, audio_data)
+                        
+                        # B-2. 도구 호출(Function Calling) 처리
+                        # Gemini API의 tool call은 여러 형태로 올 수 있음
+                        tool_calls_found = False
+                        
+                        # 방법 1: response에 직접 tool_call 속성이 있는 경우
+                        if hasattr(response, 'tool_call') and response.tool_call:
+                            for fc in response.tool_call.function_calls:
+                                if fc.name == "add_order_to_kiosk":
+                                    menu_name = fc.args.get("menu_name", "") if hasattr(fc, 'args') and fc.args else ""
+                                    if menu_name:
+                                        result = add_order_to_kiosk(menu_name)
+                                        await session.send(input=types.LiveClientToolResponse(
+                                            function_responses=[types.FunctionResponse(
+                                                name=fc.name,
+                                                id=getattr(fc, 'id', ""),
+                                                response=result
+                                            )]
+                                        ))
+                                        tool_calls_found = True
+                        
+                        # 방법 2: server_content의 model_turn의 parts에 function_call로 포함된 경우
+                        if not tool_calls_found and response.server_content and response.server_content.model_turn:
+                            for part in response.server_content.model_turn.parts:
+                                # function_call 속성 확인
+                                if hasattr(part, 'function_call') and part.function_call:
+                                    fc = part.function_call
+                                    if hasattr(fc, 'name') and fc.name == "add_order_to_kiosk":
+                                        menu_name = ""
+                                        if hasattr(fc, 'args'):
+                                            if isinstance(fc.args, dict):
+                                                menu_name = fc.args.get("menu_name", "")
+                                            elif hasattr(fc.args, 'get'):
+                                                menu_name = fc.args.get("menu_name", "")
+                                        
+                                        if menu_name:
+                                            result = add_order_to_kiosk(menu_name)
+                                            await session.send(input=types.LiveClientToolResponse(
+                                                function_responses=[types.FunctionResponse(
+                                                    name=fc.name,
+                                                    id=getattr(fc, 'id', ""),
+                                                    response=result
+                                                )]
+                                            ))
+                                            tool_calls_found = True
+                                            break
+                                
+                                # function_calls 리스트로 포함된 경우
+                                if hasattr(part, 'function_calls') and part.function_calls:
+                                    for fc in part.function_calls:
+                                        if hasattr(fc, 'name') and fc.name == "add_order_to_kiosk":
+                                            menu_name = ""
+                                            if hasattr(fc, 'args'):
+                                                if isinstance(fc.args, dict):
+                                                    menu_name = fc.args.get("menu_name", "")
+                                                elif hasattr(fc.args, 'get'):
+                                                    menu_name = fc.args.get("menu_name", "")
+                                            
+                                            if menu_name:
+                                                result = add_order_to_kiosk(menu_name)
+                                                await session.send(input=types.LiveClientToolResponse(
+                                                    function_responses=[types.FunctionResponse(
+                                                        name=fc.name,
+                                                        id=getattr(fc, 'id', ""),
+                                                        response=result
+                                                    )]
+                                                ))
+                                                tool_calls_found = True
+                                                break
+                                
+                                if tool_calls_found:
+                                    break
+                        
+                        # 디버깅: tool call 구조 확인 (처음 몇 번만 출력)
+                        if not tool_calls_found and hasattr(response, '__dict__'):
+                            # response 구조를 확인하기 위한 디버그 출력 (필요시 주석 해제)
+                            # print(f"[Debug] Response attributes: {dir(response)}")
+                            pass
+                            
+                except Exception as e:
+                    print(f"❌ [Receive Audio Error] {e}")
+                    import traceback
+                    traceback.print_exc()
+                    break
 
         # 두 작업을 동시에 실행 (Infinite Loop)
         await asyncio.gather(send_audio(), receive_audio())
 
     # 정리
-    mic_stream.stop_stream()
-    mic_stream.close()
-    spk_stream.stop_stream()
-    spk_stream.close()
-    p.terminate()
+    try:
+        mic_stream.stop_stream()
+        mic_stream.close()
+        spk_stream.stop_stream()
+        spk_stream.close()
+        p.terminate()
+    except Exception as e:
+        print(f"⚠️ [Cleanup Warning] {e}")
+
+# ------------------------------------------------------------------
+# [Function 6] 소켓 서버 연결 수락 스레드
+# 관계: 메인 로직에 의해 별도의 스레드(Daemon Thread)로 시작됨.
+# 역할: 프론트엔드 클라이언트의 연결을 받아서 kiosk_socket 전역 변수에 저장.
+# ------------------------------------------------------------------
+def socket_server_thread():
+    global kiosk_socket
+    
+    try:
+        kiosk_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        kiosk_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        kiosk_server.bind(('127.0.0.1', 9999))
+        kiosk_server.listen(1)
+        print("💡 [Socket] 키오스크 접속 대기 중 (포트: 9999)...")
+        
+        while True:
+            try:
+                client_socket, addr = kiosk_server.accept()
+                print(f"✅ [Socket] 클라이언트 연결됨: {addr}")
+                with socket_lock:
+                    # 이전 연결이 있으면 닫기
+                    if kiosk_socket:
+                        try:
+                            kiosk_socket.close()
+                        except:
+                            pass
+                    kiosk_socket = client_socket
+            except Exception as e:
+                print(f"⚠️ [Socket] 연결 수락 오류: {e}")
+                break
+    except Exception as e:
+        print(f"❌ [Socket] 서버 시작 오류: {e}")
+
 
 # --- 실행부 ---
 if __name__ == '__main__':
     # 1. 카메라 스레드 시작
-    t = threading.Thread(target=camera_thread_func, daemon=True)
-    t.start()
+    camera_thread = threading.Thread(target=camera_thread_func, daemon=True)
+    camera_thread.start()
     
-    # 2. 소켓 서버 시작 (간단화)
-    try:
-        kiosk_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        kiosk_server.bind(('127.0.0.1', 9999))
-        kiosk_server.listen(1)
-        kiosk_server.setblocking(False) # 비동기 루프 방해 방지
-        print("💡 [Socket] 키오스크 접속 대기 중 (연결 시 주문 전송 가능)...")
-        # 실제 환경에선 accept 루프를 별도 스레드나 비동기로 처리해야 함.
-        # 여기선 로직 단순화를 위해 리스닝 상태만 유지.
-    except Exception as e:
-        print(f"Socket Error: {e}")
-
+    # 2. 소켓 서버 스레드 시작
+    socket_thread = threading.Thread(target=socket_server_thread, daemon=True)
+    socket_thread.start()
+    
     # 3. 메인 오디오 루프 시작
     try:
         asyncio.run(audio_loop())
     except KeyboardInterrupt:
         print("\n🚫 프로그램 종료")
+    finally:
+        # 정리 작업
+        with socket_lock:
+            if kiosk_socket:
+                try:
+                    kiosk_socket.close()
+                except:
+                    pass
