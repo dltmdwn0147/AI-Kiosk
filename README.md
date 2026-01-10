@@ -221,6 +221,5 @@ AI-Kiosk/
 ### 📚 Additional Resources (추가 자료)
 
 - [Google Gemini API 문서](https://ai.google.dev/docs)
-- [Mediapipe Face Mesh 문서](https://google.github.io/mediapipe/solutions/face_mesh.html)
 - [PyQt5 공식 문서](https://www.riverbankcomputing.com/static/Docs/PyQt5/)
 - [Python Asyncio 가이드](https://docs.python.org/3/library/asyncio.html)
