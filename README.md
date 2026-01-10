@@ -196,12 +196,12 @@ pip install pyaudio
 
 ```
 AI-Kiosk/
-├── back/                      # Backend 서버 코드
+├── back/                     # Backend 서버 코드
 │   ├── main.py               # 메인 서버 로직 (Gemini Live API, 카메라 스레드)
 │   ├── mega_coffee_menu.json # 메뉴 데이터 (JSON)
 │   ├── excel_to_JSON.py      # 엑셀 → JSON 변환 스크립트
 │
-├── front/                    # Frontend 키오스크 클라이언트
+├── front/                   # Frontend 키오스크 클라이언트
 │   ├── mega_kiosk_ver1.py   # 메인 UI 실행 파일 (PyQt5)
 │   ├── shopping_cart.py     # 장바구니 모듈
 │   ├── manager_page.py      # 관리자 페이지
@@ -210,8 +210,8 @@ AI-Kiosk/
 │   │   └── *.csv            # 메뉴 및 주문 데이터
 │   └── UI/                  # PyQt5 UI 파일 (.ui)
 │
-├── requirements.txt          # Python 의존성 패키지 목록
-├── .env                      # 환경 변수 (API 키 등) - .gitignore에 포함됨
+├── requirements.txt         # Python 의존성 패키지 목록
+├── .env                     # 환경 변수 (API 키 등) - .gitignore에 포함됨
 ├── .gitignore               # Git 제외 파일 목록
 └── README.md                # 프로젝트 문서 (본 파일)
 ```
