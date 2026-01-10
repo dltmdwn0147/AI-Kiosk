@@ -40,7 +40,7 @@ Google의 최신 **Gemini 2.0 Multimodal Live API**를 활용하여 별도의 ST
 
 ## 📊 System Architecture (시스템 구조)
 
-```mermaid
+```
 graph TD
     User((User/Guest)) -->|Voice| Mic[Microphone]
     User -->|Face| Cam[Webcam]
