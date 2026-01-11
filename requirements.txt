@@ -8,6 +8,7 @@
 # ============================================================================
 google-genai>=0.2.0              # Google Gemini 2.0 API (음성 대화, Function Calling)
 mediapipe>=0.10.0                # 안면 인식 및 랜드마크 추출 (Face Mesh)
+deepface>=0.0.89                 # 감정 분석 (Emotion Recognition)
 opencv-python>=4.8.0             # 웹캠 영상 캡처 및 전처리
 pyaudio>=0.2.14                  # 오디오 입출력 (마이크/스피커 제어)
 
