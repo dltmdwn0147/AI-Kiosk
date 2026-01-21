@@ -3,8 +3,11 @@ import sys
 import ast
 import sqlite3
 import datetime
+import time
 import pandas as pd
 import socket
+import re
+import json
 from random import randint
 
 from PyQt5 import uic
@@ -60,25 +63,36 @@ class CommThread(QThread):
     received_data = pyqtSignal(str)
 
     def run(self):
-        try:
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect((HOST, PORT))
-            print(f"[Client] Connected to {HOST}:{PORT}")
+        while True:
+            client_socket = None
+            try:
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect((HOST, PORT))
+                print(f"[Client] Connected to {HOST}:{PORT}")
 
-            while True:
-                try:
+                # TCP는 메시지 경계를 보장하지 않으므로 버퍼에 누적 후 개행 단위로 처리한다.
+                buffer = ""
+                while True:
                     data = client_socket.recv(BUFFER_SIZE)
                     if not data:
-                        break
-                    decoded_data = data.decode('utf-8')
-                    self.received_data.emit(decoded_data)
-                except Exception as e:
-                    print(f"[Client] Error receiving: {e}")
-                    break
-        except Exception as e:
-            # 서버가 안 켜져 있어도 프로그램이 죽지 않도록 print만 하고 넘어갑니다.
-            print(f"[Client] Connection failed: {e}")
-            print("💡 서버(server_test.py)가 실행 중인지 확인해주세요.")
+                        raise ConnectionError("Server closed the connection")
+
+                    buffer += data.decode('utf-8', errors='ignore')
+                    while "\n" in buffer:
+                        line, buffer = buffer.split("\n", 1)
+                        line = line.strip()
+                        if line:
+                            self.received_data.emit(line)
+
+            except Exception as e:
+                print(f"[Client] Connection issue: {e}")
+                print("💡 서버(main_openai.py)가 실행 중인지 확인해주세요. 잠시 후 재연결합니다...")
+                if client_socket:
+                    try:
+                        client_socket.close()
+                    except Exception:
+                        pass
+                time.sleep(2)
 
 class Rept(QDialog, receipt_page):
     """영수증"""
@@ -417,6 +431,8 @@ class WindowClass(QMainWindow, main_page_class):
         super().__init__()
         self.setupUi(self)
 
+        self._reset_cart_on_start()
+
         self.comm_thread = CommThread()
         self.comm_thread.received_data.connect(self.handle_server_command)
         self.comm_thread.start()
@@ -514,12 +530,59 @@ class WindowClass(QMainWindow, main_page_class):
         self.card_label.setCursor(QCursor(QPixmap(os.path.join(IMG_DIR, 'qt자료/payment_phone.png')).scaled(120, 100)))
         self.horizontalSlider.setCursor(QCursor(QPixmap(os.path.join(IMG_DIR, 'qt자료/matercard.png')).scaled(80, 70)))
 
+    def _reset_cart_on_start(self):
+        self.drinks_cart_list_widget.clear()
+        con = sqlite3.connect(DB_PATH)
+        cur = con.cursor()
+        try:
+            cur.execute("DELETE FROM order_table")
+            con.commit()
+        except Exception:
+            pass
+        finally:
+            cur.close()
+            con.close()
+        self.menu_cnt_label.setText("0개")
+        self.payment_admit_btn.setText("  0원\n  결제하기")
+        self.drink_num = 0
+
     def handle_server_command(self, data):
         print(f"[Main] Server Command Received: {data}")
         command = data.strip()
+        if not command or command.lower() == "none" or command.startswith("참고:"):
+            return
+
+        if command.startswith("{") and command.endswith("}"):
+            try:
+                payload = json.loads(command)
+            except json.JSONDecodeError:
+                payload = None
+            if isinstance(payload, dict):
+                action_type = str(payload.get("type", "")).strip()
+                menu_name = str(payload.get("menu_name", "")).strip()
+                temperature = str(payload.get("temperature", "")).strip().upper()
+                try:
+                    quantity = int(payload.get("quantity", 1) or 1)
+                except ValueError:
+                    quantity = 1
+                if action_type:
+                    self._apply_cart_action(action_type, menu_name, quantity, temperature)
+                    return
         
         try:
-            target_menu = self.menu_df[self.menu_df['menu_name'].str.contains(command)]
+            def normalize(text: str) -> str:
+                # 공백/특수문자 제거, 자주 붙는 말 제거
+                cleaned = re.sub(r"[^0-9A-Za-z가-힣]", "", str(text))
+                for filler in ["해주세요", "해주세요요", "해줘요", "해줘", "주세요", "주세요요", "줘요", "줘", "한잔", "잔", "하나", "개"]:
+                    cleaned = cleaned.replace(filler, "")
+                return cleaned.replace(" ", "")
+
+            normalized_command = normalize(command)
+            target_menu = self.menu_df[
+                self.menu_df['menu_name'].apply(
+                    lambda name: normalize(name) in normalized_command or normalized_command in normalize(name)
+                )
+            ]
             
             if not target_menu.empty:
                 row = target_menu.iloc[0]
@@ -559,6 +622,145 @@ class WindowClass(QMainWindow, main_page_class):
                 print(f"[Main] Cannot find menu: {command}")
         except Exception as e:
             print(f"[Main] Error processing voice command: {e}")
+
+    def _normalize_text(self, text: str) -> str:
+        cleaned = re.sub(r"[^0-9A-Za-z가-힣]", "", str(text))
+        return cleaned.replace(" ", "")
+
+    def _find_menu_row(self, menu_name: str, temperature: str = ""):
+        norm = self._normalize_text(menu_name)
+        if not norm:
+            return None
+        if temperature:
+            matches = self.menu_df[
+                (self.menu_df["degree"].str.upper() == temperature)
+                & self.menu_df["menu_name"].apply(
+                    lambda name: self._normalize_text(name) in norm or norm in self._normalize_text(name)
+                )
+            ]
+        else:
+            matches = self.menu_df[
+                self.menu_df["menu_name"].apply(
+                    lambda name: self._normalize_text(name) in norm or norm in self._normalize_text(name)
+                )
+            ]
+        if matches.empty:
+            return None
+        return matches.iloc[0]
+
+    def _refresh_cart_from_db(self):
+        self.drinks_cart_list_widget.clear()
+        con = sqlite3.connect(DB_PATH)
+        order_df = pd.read_sql("select * from order_table", con)
+        con.close()
+
+        if order_df.empty:
+            self.menu_cnt_label.setText("0개")
+            self.payment_admit_btn.setText("  0원\n  결제하기")
+            self.drink_num = 0
+            return
+
+        order_df["drink_cnt"] = order_df["drink_cnt"].fillna(0).astype(int)
+        order_df["price"] = order_df["price"].fillna(0).astype(int)
+
+        total_count = int(order_df["drink_cnt"].sum())
+        total_price = int((order_df["drink_cnt"] * order_df["price"]).sum())
+
+        max_id = 0
+        for _, row in order_df.iterrows():
+            idx = str(row["id"])
+            name = str(row["order_drink"])
+            price = str(row["price"])
+            add_shopping_item_to_listwidget(
+                self.drinks_cart_list_widget, idx, name, price, self.menu_cnt_label, self.payment_admit_btn
+            )
+            item = self.drinks_cart_list_widget.item(self.drinks_cart_list_widget.count() - 1)
+            widget = self.drinks_cart_list_widget.itemWidget(item)
+            if widget:
+                widget.quantity_label.setText(str(int(row["drink_cnt"])))
+                widget.price_label.setText(str(int(row["price"]) * int(row["drink_cnt"])) + "원")
+            try:
+                max_id = max(max_id, int(idx))
+            except ValueError:
+                pass
+
+        self.menu_cnt_label.setText(f"{total_count}개")
+        self.payment_admit_btn.setText(f"  {total_price}원\n  결제하기")
+        self.drink_num = max_id
+
+    def _apply_cart_action(self, action_type: str, menu_name: str, quantity: int, temperature: str = ""):
+        if action_type not in ("add", "inc", "dec", "remove"):
+            return
+        if action_type in ("add", "inc", "dec", "remove") and not menu_name:
+            return
+
+        con = sqlite3.connect(DB_PATH)
+        order_df = pd.read_sql("select * from order_table", con)
+
+        if order_df.empty:
+            order_df = pd.DataFrame(
+                columns=["id", "customer_id", "drink_cnt", "order_drink", "price", "custom_option", "for_here_or_to_go", "discount_price"]
+            )
+
+        def match_menu(name):
+            norm_name = self._normalize_text(name)
+            norm_menu = self._normalize_text(menu_name)
+            if temperature:
+                if temperature not in name.upper():
+                    return False
+            return norm_menu in norm_name or norm_name in norm_menu
+
+        matches = order_df[order_df["order_drink"].apply(match_menu)] if not order_df.empty else pd.DataFrame()
+
+        if action_type in ("add", "inc"):
+            if not matches.empty:
+                idx = matches.index[0]
+                order_df.at[idx, "drink_cnt"] = int(order_df.at[idx, "drink_cnt"]) + max(1, quantity)
+            else:
+                menu_row = self._find_menu_row(menu_name, temperature)
+                if menu_row is None:
+                    con.close()
+                    return
+                display_name = menu_row["menu_name"]
+                if temperature:
+                    display_name = f"{display_name} ({temperature})"
+                new_id = 1
+                try:
+                    new_id = int(order_df["id"].astype(int).max()) + 1 if not order_df.empty else 1
+                except Exception:
+                    pass
+                new_row = {
+                    "id": str(new_id),
+                    "customer_id": "",
+                    "drink_cnt": max(1, quantity),
+                    "order_drink": display_name,
+                    "price": str(menu_row["price"]),
+                    "custom_option": "[]",
+                    "for_here_or_to_go": "",
+                    "discount_price": "0",
+                }
+                order_df = pd.concat([order_df, pd.DataFrame([new_row])], ignore_index=True)
+        elif action_type == "dec":
+            if matches.empty:
+                con.close()
+                return
+            idx = matches.index[0]
+            new_cnt = int(order_df.at[idx, "drink_cnt"]) - max(1, quantity)
+            if new_cnt <= 0:
+                order_df = order_df.drop(index=idx)
+            else:
+                order_df.at[idx, "drink_cnt"] = new_cnt
+        elif action_type == "remove":
+            if matches.empty:
+                con.close()
+                return
+            order_df = order_df.drop(index=matches.index)
+
+        order_df.to_sql("order_table", con, if_exists="replace", index=False)
+        con.commit()
+        con.close()
+
+        self._refresh_cart_from_db()
 
     def askRcpt(self):
         try:

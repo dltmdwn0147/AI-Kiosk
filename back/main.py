@@ -82,8 +82,10 @@ RATE = 24000
 CHUNK = 512
 
 # --- 전역 변수 설정 ---
-latest_face_data = None      # 얼굴 랜드마크
-latest_emotion_data = None   # 감정 데이터
+latest_face_data = None      # (가장 가까운 사람의) 얼굴 랜드마크
+latest_emotion_data = None   # (가장 가까운 사람의) 감정 데이터
+latest_face_count = 0        # [NEW] 현재 화면에 잡힌 총 인원 수
+
 face_data_lock = threading.Lock()
 emotion_data_lock = threading.Lock()
 
@@ -95,7 +97,6 @@ is_running = True # 전체 프로그램 종료 제어 플래그
 
 # ------------------------------------------------------------------
 # [Function 1] 메뉴 데이터 로드
-# 역할: JSON 파일을 읽어 거대 언어 모델(LLM)이 이해할 수 있는 문자열로 변환.
 # ------------------------------------------------------------------
 def load_menu_data(file_path):
     if not os.path.exists(file_path):
@@ -109,7 +110,6 @@ def load_menu_data(file_path):
 
 # ------------------------------------------------------------------
 # [Helper Function] 랜드마크 -> Bounding Box 변환
-# 역할: Mediapipe 좌표를 이용해 얼굴 영역을 잘라내기 위한 좌표 계산.
 # ------------------------------------------------------------------
 def get_face_bbox_from_landmarks(face_landmarks, image_width, image_height):
     if not face_landmarks: return None
@@ -126,14 +126,12 @@ def get_face_bbox_from_landmarks(face_landmarks, image_width, image_height):
     width = max_x - min_x
     height = max_y - min_y
     
-    if width < 50 or height < 50: return None # 너무 작은 얼굴 무시
+    if width < 30 or height < 30: return None # 너무 작은 얼굴 무시
     return (min_x, min_y, width, height)
 
 
 # ------------------------------------------------------------------
 # [Function 2] 주문 및 안면 로그 저장
-# 관계: add_order_to_kiosk() 내부에서 호출됨.
-# 역할: 주문 시점의 메뉴, 시간, 얼굴 좌표, 감정 상태를 JSON에 기록.
 # ------------------------------------------------------------------
 def save_order_log(menu_name, face_data, emotion_data=None):
     file_name = "order_logs.json"
@@ -142,7 +140,8 @@ def save_order_log(menu_name, face_data, emotion_data=None):
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "menu": menu_name,
         "face_landmarks": face_data if face_data else "No Face Detected",
-        "emotion": emotion_data if emotion_data else "No Emotion Detected"
+        "emotion": emotion_data if emotion_data else "No Emotion Detected",
+        "face_count": latest_face_count # 로그에도 인원수 저장
     }
 
     logs = []
@@ -163,14 +162,12 @@ def save_order_log(menu_name, face_data, emotion_data=None):
 
 # ------------------------------------------------------------------
 # [Function 3] AI 도구 (Tool) - 주문 실행기
-# 관계: Gemini(AI)가 사용자의 주문 의도를 파악했을 때 '스스로' 호출함.
-# 역할: 현재 얼굴/감정 데이터를 캡처하고 로그를 저장한 뒤, 키오스크로 신호 전송.
 # ------------------------------------------------------------------
 def add_order_to_kiosk(menu_name: str):
     global kiosk_socket, latest_face_data, latest_emotion_data
     print(f"\n⚡ [Tool Triggered] AI가 '{menu_name}' 주문을 처리합니다.")
     
-    # 1. 데이터 스냅샷 (Thread-Safe)
+    # 1. 데이터 스냅샷
     current_face = None
     with face_data_lock:
         if latest_face_data: current_face = latest_face_data[:]
@@ -180,7 +177,7 @@ def add_order_to_kiosk(menu_name: str):
         if latest_emotion_data:
             current_emotion = latest_emotion_data.copy() if isinstance(latest_emotion_data, dict) else latest_emotion_data
 
-    # 2. 로그 저장을 별도 스레드로 처리 (응답 속도 향상)
+    # 2. 로그 저장
     threading.Thread(target=save_order_log, args=(menu_name, current_face, current_emotion)).start()
     
     # 3. 키오스크(Unity) 전송
@@ -200,18 +197,17 @@ def add_order_to_kiosk(menu_name: str):
 
 # ------------------------------------------------------------------
 # [Function 4] 카메라 메인 루프 (Main Thread)
-# 중요: macOS에서는 GUI(imshow)가 반드시 Main Thread에 있어야 함.
-# 역할: 웹캠 읽기 -> Mediapipe 감지 -> DeepFace 감정 분석 -> 화면 출력
+# 특징: 다중 얼굴 인식(20명), 가장 가까운 얼굴 우선 분석, 인원수 카운팅
 # ------------------------------------------------------------------
 def camera_loop_main():
-    global latest_face_data, latest_emotion_data, is_running
+    global latest_face_data, latest_emotion_data, latest_face_count, is_running
     
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("❌ 카메라를 열 수 없습니다.")
         return
 
-    print("📸 [Camera] 카메라 시작 (Running on Main Thread)")
+    print("📸 [Camera] 카메라 시작 (Main Thread - Max 20 faces)")
 
     # Mediapipe 초기화
     face_landmarker = None
@@ -221,7 +217,7 @@ def camera_loop_main():
             base_options = python.BaseOptions(model_asset_path=model_file)
             options = vision.FaceLandmarkerOptions(
                 base_options=base_options,
-                num_faces=1,
+                num_faces=20, # [설정] 최대 20명까지 감지
                 min_face_detection_confidence=0.5,
                 running_mode=vision.RunningMode.IMAGE
             )
@@ -241,89 +237,133 @@ def camera_loop_main():
 
             frame_count += 1
             image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            h, w, _ = image.shape
             
-            # 1. Mediapipe 얼굴 감지
+            # Mediapipe 얼굴 감지
             if face_landmarker:
                 mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=image_rgb)
                 detection_result = face_landmarker.detect(mp_image)
 
+                detected_faces_count = 0
+                closest_face_landmarks = None
+                max_face_area = 0
+                closest_face_bbox = None
+
+                # 1. 얼굴이 감지되었는지 확인
                 if detection_result.face_landmarks:
-                    landmarks = detection_result.face_landmarks[0]
-                    # 전역 변수 업데이트
-                    data = [{'x': lm.x, 'y': lm.y, 'z': lm.z} for lm in landmarks]
-                    with face_data_lock: latest_face_data = data
+                    detected_faces_count = len(detection_result.face_landmarks)
                     
-                    # 2. DeepFace 감정 분석 (속도를 위해 15프레임마다 실행)
-                    if DEEPFACE_AVAILABLE and frame_count % 15 == 0:
-                        h, w, _ = image.shape
-                        bbox = get_face_bbox_from_landmarks(data, w, h)
+                    # [NEW] 인원수 전역 변수 업데이트
+                    with face_data_lock:
+                        latest_face_count = detected_faces_count
+                    
+                    # 2. 여러 얼굴 중 가장 가까운(큰) 얼굴 찾기
+                    for landmarks in detection_result.face_landmarks:
+                        temp_data = [{'x': lm.x, 'y': lm.y, 'z': lm.z} for lm in landmarks]
+                        bbox = get_face_bbox_from_landmarks(temp_data, w, h)
+                        
                         if bbox:
-                            x, y, bw, bh = bbox
-                            # 얼굴 부분만 잘라냄 (Crop)
-                            face_crop = image_rgb[y:y+bh, x:x+bw]
+                            bx, by, bw, bh = bbox
+                            area = bw * bh
                             
+                            # 현재까지 가장 큰 얼굴보다 더 크면 메인 유저로 갱신
+                            if area > max_face_area:
+                                max_face_area = area
+                                closest_face_landmarks = landmarks
+                                closest_face_bbox = bbox
+                            
+                            # (시각화) 모든 얼굴에 얇은 회색 박스
+                            cv2.rectangle(image, (bx, by), (bx+bw, by+bh), (100, 100, 100), 1)
+
+                    # 3. 메인 유저(가장 가까운 사람) 처리
+                    if closest_face_landmarks:
+                        # (1) 랜드마크 저장
+                        data = [{'x': lm.x, 'y': lm.y, 'z': lm.z} for lm in closest_face_landmarks]
+                        with face_data_lock: latest_face_data = data
+                        
+                        # (시각화) 메인 유저 강조 (초록색 박스)
+                        cx, cy, cw, ch = closest_face_bbox
+                        cv2.rectangle(image, (cx, cy), (cx+cw, cy+ch), (0, 255, 0), 2)
+
+                        # (2) DeepFace 감정 분석 (15프레임마다 메인 유저만 분석)
+                        if DEEPFACE_AVAILABLE and frame_count % 15 == 0:
+                            face_crop = image_rgb[cy:cy+ch, cx:cx+cw]
                             try:
-                                # 얼굴 탐지 스킵(skip)으로 고속 분석
                                 res = DeepFace.analyze(img_path=face_crop, actions=['emotion'], 
-                                                    detector_backend='skip', enforce_detection=False, silent=True)
+                                                     detector_backend='skip', enforce_detection=False, silent=True)
                                 if isinstance(res, list): res = res[0]
                                 emotion = res['dominant_emotion']
                                 
                                 with emotion_data_lock: 
                                     latest_emotion_data = {'dominant_emotion': emotion}
                             except: pass
-                    
-                    # 화면에 감정 텍스트 표시
-                    if latest_emotion_data:
-                        cv2.putText(image, f"Emotion: {latest_emotion_data['dominant_emotion']}", (10, 50), 
-                                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                 else:
-                    with face_data_lock: latest_face_data = None
+                    # 얼굴 없음
+                    with face_data_lock: 
+                        latest_face_data = None
+                        latest_face_count = 0
+                    detected_faces_count = 0
+
+                # 4. 화면 UI 표시
+                # 인원수
+                cv2.putText(image, f"Faces: {detected_faces_count}", (20, 40), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+
+                # 감정 상태
+                if latest_emotion_data and detected_faces_count > 0:
+                     emo_text = latest_emotion_data['dominant_emotion']
+                     cv2.putText(image, f"Emotion: {emo_text}", (20, 80), 
+                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             
-            # 3. 화면 출력 (반드시 메인 스레드여야 함)
-            cv2.imshow('Kiosk Eyes', image)
+            # 5. 화면 출력 (macOS 필수)
+            cv2.imshow('Kiosk Eyes (Server)', image)
             
-            # ESC 키 종료
-            if cv2.waitKey(1) & 0xFF == 27:
-                print("🔚 종료 요청 (ESC Key)")
+            if cv2.waitKey(1) & 0xFF == 27: # ESC
                 is_running = False
                 break
-            
-            # 창 닫기 버튼 감지
-            if cv2.getWindowProperty('Kiosk Eyes', cv2.WND_PROP_VISIBLE) < 1:
+            if cv2.getWindowProperty('Kiosk Eyes (Server)', cv2.WND_PROP_VISIBLE) < 1:
                 is_running = False
                 break
 
     finally:
         cap.release()
         cv2.destroyAllWindows()
-        print("📸 카메라 종료")
+        print("📸 카메라 루프 종료")
 
 
 # ------------------------------------------------------------------
 # [Function 5] 오디오 루프 (Background Thread)
-# 역할: 별도 스레드에서 비동기(Asyncio)로 Gemini Live API와 통신.
+# 특징: 감정 및 인원수 정보를 Gemini에게 시스템 메시지로 실시간 전달
 # ------------------------------------------------------------------
 def audio_thread_entry():
-    """스레드 타겟용 래퍼 함수"""
     asyncio.run(audio_loop_async())
 
-# [수정된 부분] Function 5: 오디오 루프
 async def audio_loop_async():
-    global is_running, latest_emotion_data # 전역 변수 참조
+    global is_running, latest_emotion_data, latest_face_count
     
     menu_data = load_menu_data(os.path.join(current_dir, 'mega_coffee_menu.json'))
     
-    # [Point 1] 시스템 프롬프트 강화: 감정 정보가 들어오면 반응하도록 지시
+    # [Point 1] 시스템 프롬프트: 인원수와 감정에 따른 행동 지침 정의
     system_instruction = f"""
     당신은 메가커피 키오스크 음성 AI입니다.
     손님의 말을 듣고 즉시 대답하세요.
     
-    [중요] 시스템이 주기적으로 '[System] User Emotion: ...' 형태로 손님의 표정 정보를 보내줍니다.
-    - User Emotion: Sad (우울) -> 따뜻한 위로와 함께 달콤한 메뉴를 추천하세요.
-    - User Emotion: Angry (화남) -> 정중하게 사과하고 빠르고 간결하게 응대하세요.
-    - User Emotion: Happy (행복) -> 밝은 목소리로 신메뉴를 권유해보세요.
+    [실시간 상황 인지 시스템]
+    시스템이 주기적으로 아래 정보를 보내줍니다:
+    1. User Emotion: (예: Happy, Sad, Angry) - 가장 가까운 손님의 표정
+    2. Face Count: (예: 1, 3, 5) - 현재 화면에 보이는 사람 수
     
+    [행동 지침]
+    1. 인원수 파악:
+       - 2명 이상: "두 분이서 오셨네요!", "여러분이서 드시기 좋은 메뉴 추천해드릴까요?"
+       - 5명 이상: "손님이 정말 많네요! 매장이 북적북적해요."
+       - 1명: 개인 맞춤형 대화 집중.
+       
+    2. 감정 대응:
+       - Sad/Neutral: 따뜻하고 친절하게, 달콤한 메뉴 추천.
+       - Angry: 빠르고 신속하게, 불필요한 말 줄이기.
+       - Happy: 밝은 텐션으로 인기 메뉴 추천.
+
     보유 메뉴: {menu_data}
     주문시 반드시 'add_order_to_kiosk' 도구를 호출하세요.
     """
@@ -334,7 +374,7 @@ async def audio_loop_async():
         spk_stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True, frames_per_buffer=CHUNK)
         
         client = genai.Client(api_key=api_key, http_options={"api_version": "v1alpha"})
-        print("🎧 [Audio] Gemini 연결 시도 중... (Background Thread)")
+        print("🎧 [Audio] Gemini 연결 시도 중...")
 
         config = types.LiveConnectConfig(
             response_modalities=["AUDIO"], 
@@ -381,30 +421,37 @@ async def audio_loop_async():
                                         function_responses=[types.FunctionResponse(name=fc.name, id=fc.id, response=res)]
                                     ))
 
-            # [Point 2] Task C: 감정 정보 실시간 전송 (NEW!)
-            async def send_emotion_context():
+            # Task C: 상황 정보(감정, 인원수) 실시간 주입
+            async def send_context_update():
                 last_sent_emotion = "Neutral"
+                last_sent_count = -1
+                
                 while is_running:
-                    await asyncio.sleep(2.0) # 2초마다 체크 (너무 자주 보내면 대화가 끊김)
+                    await asyncio.sleep(2.5) # 너무 자주 보내지 않도록 조절
                     
+                    # 현재 데이터 스냅샷
                     current_emo = "Neutral"
+                    current_cnt = 0
+                    
                     with emotion_data_lock:
                         if latest_emotion_data and 'dominant_emotion' in latest_emotion_data:
                             current_emo = latest_emotion_data['dominant_emotion']
+                    with face_data_lock:
+                        current_cnt = latest_face_count
                     
-                    # 감정이 변했거나, 특정 강한 감정(화남, 슬픔)이 지속될 때 AI에게 알림
-                    # (여기선 감정이 바뀔 때만 보내도록 설정)
-                    if current_emo != last_sent_emotion and current_emo != "Neutral":
-                        print(f"🌊 [Context] 감정 변화 감지: {last_sent_emotion} -> {current_emo}")
+                    # 변화 감지 시 전송 (인원수 변화 or 감정 변화)
+                    if (current_emo != last_sent_emotion and current_emo != "Neutral") or (current_cnt != last_sent_count):
                         
-                        # Gemini에게 텍스트로 상황 전달
-                        msg = f"[System] Current User Emotion: {current_emo}"
-                        await session.send(input=msg, end_of_turn=True) # end_of_turn=True로 하면 AI가 즉시 반응함
+                        print(f"🌊 [Context Update] 감정: {current_emo}, 인원: {current_cnt}명")
+                        
+                        msg = f"[System] User Emotion: {current_emo}, Face Count: {current_cnt}"
+                        await session.send(input=msg, end_of_turn=True)
                         
                         last_sent_emotion = current_emo
+                        last_sent_count = current_cnt
 
-            # 세 가지 태스크를 동시에 실행
-            await asyncio.gather(send_audio(), receive_audio(), send_emotion_context())
+            # 3가지 태스크 동시 실행
+            await asyncio.gather(send_audio(), receive_audio(), send_context_update())
 
     except Exception as e:
         print(f"❌ [Audio] 오류 발생: {e}")
@@ -418,7 +465,6 @@ async def audio_loop_async():
 
 # ------------------------------------------------------------------
 # [Function 6] 소켓 서버 (Background Thread)
-# 역할: 키오스크 클라이언트(Frontend)의 접속을 대기하고 연결 유지.
 # ------------------------------------------------------------------
 def socket_server_thread():
     global kiosk_socket
@@ -427,7 +473,7 @@ def socket_server_thread():
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind(('127.0.0.1', 9999))
         server.listen(1)
-        print("💡 [Socket] 포트 9999 대기 중... (Background Thread)")
+        print("💡 [Socket] 포트 9999 대기 중...")
         
         while is_running:
             server.settimeout(1.0)
@@ -445,16 +491,15 @@ def socket_server_thread():
 
 # --- 실행부 (Entry Point) ---
 if __name__ == '__main__':
-    # 1. 오디오 스레드 시작 (Daemon)
+    # 1. 오디오 스레드 시작
     audio_t = threading.Thread(target=audio_thread_entry, daemon=True)
     audio_t.start()
 
-    # 2. 소켓 스레드 시작 (Daemon)
+    # 2. 소켓 스레드 시작
     socket_t = threading.Thread(target=socket_server_thread, daemon=True)
     socket_t.start()
 
-    # 3. 카메라 메인 루프 실행 (Main Thread Blocking)
-    # macOS에서는 반드시 여기서 카메라 창을 띄워야 함
+    # 3. 카메라 메인 루프 실행 (반드시 메인 스레드)
     try:
         camera_loop_main()
     except KeyboardInterrupt:

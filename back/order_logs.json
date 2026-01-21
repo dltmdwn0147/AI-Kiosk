@@ -1,0 +1,353 @@
+[
+  {
+    "timestamp": "2026-01-20 23:04:25",
+    "menu": "None",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "happy"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:06:47",
+    "menu": "참고: 고객 표정 감정은 neutral로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:06:52",
+    "menu": "참고: 고객 표정 감정은 sad로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:07:04",
+    "menu": "참고: 고객 표정 감정은 neutral로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:07:12",
+    "menu": "참고: 고객 표정 감정은 sad로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:07:20",
+    "menu": "참고: 고객 표정 감정은 happy로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "happy"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:07:22",
+    "menu": "참고: 고객 표정 감정은 neutral로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:07:32",
+    "menu": "참고: 고객 표정 감정은 sad로 추정됨.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:09:23",
+    "menu": "아이스 아메리카노 한 잔 줄래?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:09:53",
+    "menu": "고맙습니다.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:09:57",
+    "menu": "오늘 날이 조금 추운데 따뜻한 음료 하나만 추천해 줄래?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:10:07",
+    "menu": "아이스 아메리카노 한 잔 줄래?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:10:14",
+    "menu": "어이 씨발",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:10:18",
+    "menu": "아이스 아메리카노 한 잔 더 추가해줘",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:10:38",
+    "menu": "아이스 아메리카노보다 사이즈 큰 거 하나 있을까?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:15:47",
+    "menu": "아이스 아메리카노 한 잔 줄래?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "fear"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:18:14",
+    "menu": "아이스 아메리카노 한 잔 줘.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:18:26",
+    "menu": "아이스 아메리카노 한 잔 주라니까",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:20:18",
+    "menu": "아이스 아메리카노 한 잔 줄래?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:20:39",
+    "menu": "너는 내가 말을 했는데 답변을 안해?",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:23:52",
+    "menu": "메가커피입니다.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:23:59",
+    "menu": "아이스 아메리카노 한 잔 줘",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:24:07",
+    "menu": "아니 씨발 대답좀 하라니까 친구야",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:24:12",
+    "menu": "어.",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-20 23:24:13",
+    "menu": "아...",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 00:13:28",
+    "menu": "안녕하세요. 메가코트...",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 00:13:40",
+    "menu": "아이스 아메리카노 한 잔 추가해줘",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 15:14:46",
+    "menu": "아이스 아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 15:15:00",
+    "menu": "아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 15:28:59",
+    "menu": "디카페인 헤이즐넛 아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 15:35:17",
+    "menu": "아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 15:57:15",
+    "menu": "디카페인 아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "fear"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:04:15",
+    "menu": "카페라떼",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:07:42",
+    "menu": "아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "fear"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:17:53",
+    "menu": "아이스 아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:18:07",
+    "menu": "카페라떼",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:18:48",
+    "menu": "아이스 아메리카노",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "sad"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:19:03",
+    "menu": "카페라떼",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "angry"
+    },
+    "face_count": 1
+  },
+  {
+    "timestamp": "2026-01-21 16:19:20",
+    "menu": "카페라떼",
+    "face_landmarks": "Detected",
+    "emotion": {
+      "dominant_emotion": "neutral"
+    },
+    "face_count": 1
+  }
+]
