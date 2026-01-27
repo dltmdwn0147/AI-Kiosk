@@ -41,6 +41,7 @@ import sys
 import json
 import threading
 import time
+import re
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -93,6 +94,7 @@ kiosk_socket = None
 socket_lock = threading.Lock()
 
 is_running = True # 전체 프로그램 종료 제어 플래그
+recent_action_cache = {"text": "", "ts": 0.0}
 
 
 # ------------------------------------------------------------------
@@ -106,6 +108,25 @@ def load_menu_data(file_path):
             return json.dumps(json.load(f), ensure_ascii=False, indent=2)
     except Exception:
         return "정보 없음"
+
+def _load_menu_items(file_path):
+    if not os.path.exists(file_path):
+        return []
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        items = []
+        for m in data:
+            if not isinstance(m, dict):
+                continue
+            items.append({
+                "name": m.get("menu_name", ""),
+                "temperature": str(m.get("menu_temperature", "")).upper(),
+                "price": m.get("menu_price", ""),
+            })
+        return items
+    except Exception:
+        return []
 
 
 # ------------------------------------------------------------------
@@ -164,35 +185,66 @@ def save_order_log(menu_name, face_data, emotion_data=None):
 # [Function 3] AI 도구 (Tool) - 주문 실행기
 # ------------------------------------------------------------------
 def add_order_to_kiosk(menu_name: str):
+    return send_kiosk_action("add", menu_name, 1, "")
+
+def send_kiosk_action(action_type: str, menu_name: str, quantity: int = 1, temperature: str = ""):
     global kiosk_socket, latest_face_data, latest_emotion_data
-    print(f"\n⚡ [Tool Triggered] AI가 '{menu_name}' 주문을 처리합니다.")
-    
-    # 1. 데이터 스냅샷
+    if not action_type:
+        return {"result": "주문 실패", "menu": menu_name}
+    payload = {
+        "type": action_type,
+        "menu_name": menu_name,
+        "quantity": int(quantity or 1),
+        "temperature": temperature or "",
+    }
+    payload_json = json.dumps(payload, ensure_ascii=False)
+    now = time.time()
+    if payload_json == recent_action_cache["text"] and now - recent_action_cache["ts"] < 2.0:
+        return {"result": "중복 차단", "menu": menu_name}
+
     current_face = None
     with face_data_lock:
-        if latest_face_data: current_face = latest_face_data[:]
-    
+        if latest_face_data:
+            current_face = latest_face_data[:]
     current_emotion = None
     with emotion_data_lock:
         if latest_emotion_data:
             current_emotion = latest_emotion_data.copy() if isinstance(latest_emotion_data, dict) else latest_emotion_data
-
-    # 2. 로그 저장
     threading.Thread(target=save_order_log, args=(menu_name, current_face, current_emotion)).start()
-    
-    # 3. 키오스크(Unity) 전송
+
     msg = "주문 실패 (연결 없음)"
     with socket_lock:
         if kiosk_socket:
             try:
-                print(f"   └─ 📡 키오스크 전송: {menu_name}")
-                kiosk_socket.sendall(menu_name.encode('utf-8'))
+                print(f"   └─ 📡 키오스크 전송(raw): {payload_json}")
+                kiosk_socket.sendall((payload_json + "\n").encode("utf-8"))
                 msg = "주문 성공"
             except Exception as e:
                 print(f"   └─ ❌ 전송 실패: {e}")
-                pass
-    
+    recent_action_cache["text"] = payload_json
+    recent_action_cache["ts"] = now
     return {"result": msg, "menu": menu_name}
+
+def get_menu_price(menu_name: str, temperature: str = ""):
+    items = _load_menu_items(os.path.join(current_dir, "mega_coffee_menu.json"))
+    if not items:
+        return {"menu": menu_name, "price": None}
+    def norm(text):
+        return re.sub(r"\\s+", "", str(text))
+    temp = str(temperature).upper().strip()
+    best = None
+    for item in items:
+        name = item.get("name", "")
+        if not name:
+            continue
+        if norm(name) in norm(menu_name) or norm(menu_name) in norm(name):
+            if temp and item.get("temperature") and item.get("temperature") != temp:
+                continue
+            best = item
+            break
+    if not best:
+        return {"menu": menu_name, "price": None}
+    return {"menu": best.get("name", menu_name), "price": best.get("price"), "temperature": best.get("temperature", "")}
 
 
 # ------------------------------------------------------------------
@@ -365,7 +417,10 @@ async def audio_loop_async():
        - Happy: 밝은 텐션으로 인기 메뉴 추천.
 
     보유 메뉴: {menu_data}
-    주문시 반드시 'add_order_to_kiosk' 도구를 호출하세요.
+    주문 시 아래 도구를 사용하세요:
+    - add_order_to_kiosk(menu_name): 기본 추가
+    - kiosk_action(type, menu_name, quantity, temperature): 추가/삭제/증감
+    - get_menu_price(menu_name, temperature): 가격 질의
     """
 
     try:
@@ -377,15 +432,41 @@ async def audio_loop_async():
         print("🎧 [Audio] Gemini 연결 시도 중...")
 
         config = types.LiveConnectConfig(
-            response_modalities=["AUDIO"], 
+            response_modalities=["AUDIO"],
             system_instruction=types.Content(parts=[types.Part(text=system_instruction)]),
             tools=[types.Tool(function_declarations=[
                 types.FunctionDeclaration(
                     name="add_order_to_kiosk",
-                    description="주문 처리 도구",
+                    description="주문 추가 도구",
                     parameters=types.Schema(
                         type="OBJECT",
                         properties={"menu_name": types.Schema(type="STRING")},
+                        required=["menu_name"]
+                    )
+                ),
+                types.FunctionDeclaration(
+                    name="kiosk_action",
+                    description="장바구니 제어 도구(add/remove/inc/dec)",
+                    parameters=types.Schema(
+                        type="OBJECT",
+                        properties={
+                            "type": types.Schema(type="STRING"),
+                            "menu_name": types.Schema(type="STRING"),
+                            "quantity": types.Schema(type="NUMBER"),
+                            "temperature": types.Schema(type="STRING"),
+                        },
+                        required=["type", "menu_name"]
+                    )
+                ),
+                types.FunctionDeclaration(
+                    name="get_menu_price",
+                    description="메뉴 가격 조회 도구",
+                    parameters=types.Schema(
+                        type="OBJECT",
+                        properties={
+                            "menu_name": types.Schema(type="STRING"),
+                            "temperature": types.Schema(type="STRING"),
+                        },
                         required=["menu_name"]
                     )
                 )

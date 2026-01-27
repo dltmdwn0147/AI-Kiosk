@@ -1,27 +1,36 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import numpy as np
 
-# ===== 1. macOS 한글 폰트 설정 =====
-mpl.rcParams["font.family"] = "AppleGothic"   # 맥 기본 한글 폰트
-mpl.rcParams["axes.unicode_minus"] = False    # 마이너스 기호 깨짐 방지
+# macOS 한글 폰트 설정
+mpl.rcParams["font.family"] = "AppleGothic"
+mpl.rcParams["axes.unicode_minus"] = False
 
-# ===== 2. 데이터 설정 (예시 비중) =====
-labels = ["비대면 주문", "주문시간 감소", "주문·결제 플로우 편의성"]
-sizes  = [40, 35, 25]  # 100% 기준 임의 설정
+# === 그래프 2: 주문 시간 감소 효과 ===
+methods = ["대면 주문", "키오스크 주문"]
+order_time_index = [100, 60]  # 대면=100, 키오스크≈60 (약 40% 감소)
 
-colors = ["#ffb3ba", "#baffc9", "#bae1ff"]
+x = np.arange(len(methods))
+bar_width = 0.6
 
-# ===== 3. 원그래프 그리기 =====
-plt.figure(figsize=(6, 6))
-wedges, texts, autotexts = plt.pie(
-    sizes,
-    labels=labels,
-    autopct="%.1f%%",   # 퍼센트 표시
-    startangle=90,
-    colors=colors,
-    counterclock=False
-)
+plt.figure(figsize=(6, 5))
+bars = plt.bar(x, order_time_index, width=bar_width, color=["#c0504d", "#4bacc6"])
 
-plt.title("키오스크 주요 장점 3가지 비중 (예시)")
+for bar in bars:
+    height = bar.get_height()
+    plt.text(
+        bar.get_x() + bar.get_width() / 2,
+        height + 1,
+        f"{height}",
+        ha="center",
+        va="bottom",
+        fontsize=11
+    )
+
+plt.xticks(x, methods)
+plt.ylabel("주문 시간 지수(대면 주문=100)")
+plt.title("키오스크 도입에 따른 주문 시간 감소 (예시, 약 40% 감소)")
+
+plt.ylim(0, 120)
 plt.tight_layout()
 plt.show()
