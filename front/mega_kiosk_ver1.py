@@ -689,7 +689,7 @@ class WindowClass(QMainWindow, main_page_class):
         self.drink_num = max_id
 
     def _apply_cart_action(self, action_type: str, menu_name: str, quantity: int, temperature: str = ""):
-        if action_type not in ("add", "inc", "dec", "remove"):
+        if action_type not in ("add", "inc", "dec", "remove", "set"):
             return
         if action_type in ("add", "inc", "dec", "remove") and not menu_name:
             return
@@ -712,10 +712,13 @@ class WindowClass(QMainWindow, main_page_class):
 
         matches = order_df[order_df["order_drink"].apply(match_menu)] if not order_df.empty else pd.DataFrame()
 
-        if action_type in ("add", "inc"):
+        if action_type in ("add", "inc", "set"):
             if not matches.empty:
                 idx = matches.index[0]
-                order_df.at[idx, "drink_cnt"] = int(order_df.at[idx, "drink_cnt"]) + max(1, quantity)
+                if action_type == "set":
+                    order_df.at[idx, "drink_cnt"] = max(1, quantity)
+                else:
+                    order_df.at[idx, "drink_cnt"] = int(order_df.at[idx, "drink_cnt"]) + max(1, quantity)
             else:
                 menu_row = self._find_menu_row(menu_name, temperature)
                 if menu_row is None:
