@@ -8,6 +8,7 @@ import pandas as pd
 import socket
 import re
 import json
+import threading
 from random import randint
 
 from PyQt5 import uic
@@ -62,6 +63,11 @@ receipt_page = uic.loadUiType(resource_path('UI/receipt_page_2.ui'))[0]
 class CommThread(QThread):
     received_data = pyqtSignal(str)
 
+    def __init__(self):
+        super().__init__()
+        self.client_socket = None
+        self._socket_lock = threading.Lock()
+
     def run(self):
         while True:
             client_socket = None
@@ -69,6 +75,8 @@ class CommThread(QThread):
                 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 client_socket.connect((HOST, PORT))
                 print(f"[Client] Connected to {HOST}:{PORT}")
+                with self._socket_lock:
+                    self.client_socket = client_socket
 
                 # TCP는 메시지 경계를 보장하지 않으므로 버퍼에 누적 후 개행 단위로 처리한다.
                 buffer = ""
@@ -92,7 +100,22 @@ class CommThread(QThread):
                         client_socket.close()
                     except Exception:
                         pass
+                with self._socket_lock:
+                    if self.client_socket is client_socket:
+                        self.client_socket = None
                 time.sleep(2)
+
+    def send_message(self, payload: dict):
+        message = json.dumps(payload, ensure_ascii=False) + "\n"
+        with self._socket_lock:
+            sock = self.client_socket
+        if not sock:
+            print("[Client] Send skipped: not connected")
+            return
+        try:
+            sock.sendall(message.encode("utf-8"))
+        except Exception as e:
+            print(f"[Client] Send error: {e}")
 
 class Rept(QDialog, receipt_page):
     """영수증"""
@@ -565,6 +588,12 @@ class WindowClass(QMainWindow, main_page_class):
                     quantity = int(payload.get("quantity", 1) or 1)
                 except ValueError:
                     quantity = 1
+                if action_type == "checkout_confirm":
+                    self.stackedWidget.setCurrentWidget(self.payment_choose_page)
+                    return
+                if action_type == "checkout_cancel":
+                    self.stackedWidget.setCurrentWidget(self.order_check_page)
+                    return
                 if action_type:
                     self._apply_cart_action(action_type, menu_name, quantity, temperature)
                     return
@@ -689,7 +718,7 @@ class WindowClass(QMainWindow, main_page_class):
         self.drink_num = max_id
 
     def _apply_cart_action(self, action_type: str, menu_name: str, quantity: int, temperature: str = ""):
-        if action_type not in ("add", "inc", "dec", "remove", "set"):
+        if action_type not in ("add", "inc", "dec", "remove", "set", "reset"):
             return
         if action_type in ("add", "inc", "dec", "remove") and not menu_name:
             return
@@ -712,6 +741,9 @@ class WindowClass(QMainWindow, main_page_class):
 
         matches = order_df[order_df["order_drink"].apply(match_menu)] if not order_df.empty else pd.DataFrame()
 
+        if action_type == "reset":
+            self._reset_cart_on_start()
+            return
         if action_type in ("add", "inc", "set"):
             if not matches.empty:
                 idx = matches.index[0]
@@ -1015,12 +1047,24 @@ class WindowClass(QMainWindow, main_page_class):
         self.total_cnt_for_check_page.setText(str(total_count) + '개')
 
         if total_count > 0:
+            self._send_checkout(order_table_df)
             self.stackedWidget.setCurrentWidget(self.order_check_page)
             self.fill_the_table_widget(self.tableWidget_menu_check)
             self.fill_the_table_widget(self.tableWidget_menu_2_for_qr)
         else:
             msg_box_page = MSG_Dialog(self, 2)
             msg_box_page.exec_()
+
+    def _send_checkout(self, order_table_df):
+        items = []
+        for _, row in order_table_df.iterrows():
+            menu_name = str(row.get("order_drink", "")).strip()
+            qty = int(row.get("drink_cnt", 1) or 1)
+            price = str(row.get("price", "")).strip()
+            if menu_name:
+                items.append({"menu_name": menu_name, "quantity": qty, "price": price})
+        if items:
+            self.comm_thread.send_message({"type": "checkout_preview", "items": items})
 
     def open_manager_page(self):
         self.manager_page_num += 1
