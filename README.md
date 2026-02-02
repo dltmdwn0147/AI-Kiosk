@@ -134,6 +134,15 @@ OPENAI_API_KEY=your_api_key_here
 
 **⚠️ 주의**: `.env` 파일은 `.gitignore`에 포함되어 있어 Git에 업로드되지 않습니다. API 키를 절대 공개 저장소에 올리지 마세요!
 
+#### Step 5: 얼굴 랜드마크 모델 다운로드
+Mediapipe Face Landmarker 모델이 필요합니다. 아래 스크립트로 다운로드하세요:
+
+```bash
+python back/download_model.py
+```
+
+다운로드가 완료되면 `back/face_landmarker.task` 파일이 생성됩니다.
+
 ---
 
 ### 🎯 Running the Project (프로젝트 실행)
