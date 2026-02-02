@@ -594,6 +594,13 @@ class WindowClass(QMainWindow, main_page_class):
                 if action_type == "checkout_cancel":
                     self.stackedWidget.setCurrentWidget(self.order_check_page)
                     return
+                if action_type == "checkout_request":
+                    self.move_to_order_check_page()
+                    return
+                if action_type == "reset":
+                    self._reset_cart_on_start()
+                    self.stackedWidget.setCurrentWidget(self.opening_page)
+                    return
                 if action_type:
                     self._apply_cart_action(action_type, menu_name, quantity, temperature)
                     return
@@ -656,25 +663,36 @@ class WindowClass(QMainWindow, main_page_class):
         cleaned = re.sub(r"[^0-9A-Za-z가-힣]", "", str(text))
         return cleaned.replace(" ", "")
 
+    def _normalize_order_drink(self, text: str) -> str:
+        # "(ICE)" 같은 온도 표기를 제거하고 비교용으로 정규화
+        base = re.sub(r"\([^)]*\)", "", str(text))
+        return self._normalize_text(base)
+
     def _find_menu_row(self, menu_name: str, temperature: str = ""):
         norm = self._normalize_text(menu_name)
         if not norm:
             return None
+        wants_decaf = "디카페인" in menu_name
         if temperature:
-            matches = self.menu_df[
-                (self.menu_df["degree"].str.upper() == temperature)
-                & self.menu_df["menu_name"].apply(
-                    lambda name: self._normalize_text(name) in norm or norm in self._normalize_text(name)
-                )
-            ]
+            matches = self.menu_df[self.menu_df["degree"].str.upper() == temperature]
         else:
-            matches = self.menu_df[
-                self.menu_df["menu_name"].apply(
-                    lambda name: self._normalize_text(name) in norm or norm in self._normalize_text(name)
-                )
-            ]
+            matches = self.menu_df
+
+        def is_match(name: str) -> bool:
+            name_norm = self._normalize_text(name)
+            return norm == name_norm or norm in name_norm or name_norm in norm
+
+        matches = matches[matches["menu_name"].apply(is_match)]
+        if not wants_decaf:
+            matches = matches[~matches["menu_name"].str.contains("디카페인", na=False)]
+
         if matches.empty:
             return None
+        exact = matches[matches["menu_name"].apply(lambda n: self._normalize_text(n) == norm)]
+        if not exact.empty:
+            return exact.iloc[0]
+        # 부분 매칭은 이름이 짧은 메뉴를 우선
+        matches = matches.assign(_len=matches["menu_name"].str.len()).sort_values("_len")
         return matches.iloc[0]
 
     def _refresh_cart_from_db(self):
@@ -732,12 +750,16 @@ class WindowClass(QMainWindow, main_page_class):
             )
 
         def match_menu(name):
-            norm_name = self._normalize_text(name)
+            norm_name = self._normalize_order_drink(name)
             norm_menu = self._normalize_text(menu_name)
+            if "디카페인" not in menu_name and "디카페인" in name:
+                return False
+            if "디카페인" in menu_name and "디카페인" not in name:
+                return False
             if temperature:
                 if temperature not in name.upper():
                     return False
-            return norm_menu in norm_name or norm_name in norm_menu
+            return norm_menu == norm_name or norm_menu in norm_name or norm_name in norm_menu
 
         matches = order_df[order_df["order_drink"].apply(match_menu)] if not order_df.empty else pd.DataFrame()
 
