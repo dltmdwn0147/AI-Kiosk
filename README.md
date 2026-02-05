@@ -114,10 +114,17 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-**참고**: 일부 시스템에서 `pyaudio` 설치 시 문제가 발생할 수 있습니다.
-- **macOS**: `brew install portaudio` 실행 후 `pip install pyaudio`
-- **Linux (Ubuntu/Debian)**: `sudo apt-get install portaudio19-dev python3-pyaudio`
-- **Windows**: pip로 직접 설치 가능 (`pip install pyaudio`)
+**참고 (OS별 설치)**: 일부 시스템에서 `pyaudio` 설치 시 문제가 발생할 수 있습니다.
+- **macOS**:
+  ```bash
+  brew install portaudio
+  pip install pyaudio
+  ```
+- **Windows** (PowerShell):
+  ```powershell
+  pip install pyaudio
+  ```
+  *설치가 실패하면 Python 버전에 맞는 `pyaudio` 휠을 설치해야 할 수 있습니다.*
 
 #### Step 4: 환경 변수 설정
 프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 OpenAI API 키를 입력합니다:
@@ -143,11 +150,28 @@ python back/download_model.py
 
 다운로드가 완료되면 `back/face_landmarker.task` 파일이 생성됩니다.
 
+#### Step 6: 추천 캐시 파일 생성 (필수)
+추천 기능을 사용하려면 아래 캐시 파일을 생성해야 합니다.
+
+**macOS / Windows 공통**:
+```bash
+cd back
+python main_openai_v2.py --build-embeddings
+python main_openai_v2.py --build-categories
+python main_openai_v2.py --build-subcategories
+```
+
+생성되는 파일:
+- `back/menu_embeddings.json`
+- `back/menu_categories.json`
+- `back/menu_subcategories.json`
+
 ---
 
 ### 🎯 Running the Project (프로젝트 실행)
 
 #### Backend 서버 실행
+**macOS / Windows 공통**
 ```bash
 cd back
 python main_openai.py
@@ -159,7 +183,7 @@ python main_openai.py
 - ✅ 마이크 권한이 허용되었는지 확인
 
 #### Frontend 키오스크 클라이언트 실행
-별도 터미널에서:
+별도 터미널에서 실행합니다.
 ```bash
 cd front
 python mega_kiosk_ver1.py
