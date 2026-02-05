@@ -601,6 +601,9 @@ class WindowClass(QMainWindow, main_page_class):
                     self._reset_cart_on_start()
                     self.stackedWidget.setCurrentWidget(self.opening_page)
                     return
+                if action_type == "open_main":
+                    self.stackedWidget.setCurrentWidget(self.main_page)
+                    return
                 if action_type:
                     self._apply_cart_action(action_type, menu_name, quantity, temperature)
                     return

@@ -67,6 +67,7 @@ CHUNK = 1024
 ORDER_LOG_RETENTION_DAYS = 7
 RECOMMEND_COUNT = 3
 SESSION_TIMEOUT_SEC = 5.0
+FACE_LOST_RESET_SEC = 1.5
 
 # 얼굴/감정 상태
 latest_face_data = None
@@ -474,6 +475,7 @@ class OrderState:
         self.quantity = 1
         self.temperature = ""
         self.last_suggested_menu = ""
+        self.last_recommendations = []
     def set_menu(self, menu): self.menu = menu
     def can_finalize(self): return True
 
@@ -625,6 +627,20 @@ def _temperature_hint(text: str) -> str:
     if any(k in text for k in ["핫", "따뜻", "뜨거", "hot"]): return "HOT"
     return ""
 
+def _intent_category_from_text(text: str) -> str:
+    t = str(text)
+    if _contains_any(t, ["달달", "달콤", "부드", "라떼", "바닐라", "흑당", "카라멜"]):
+        return "latte"
+    if _contains_any(t, ["상큼", "과일", "에이드", "주스", "레몬", "자몽"]):
+        return "ade"
+    if _contains_any(t, ["진한", "쓴", "쌉싸", "아메리카노", "콜드브루", "에스프레소"]):
+        return "coffee"
+    if _contains_any(t, ["차", "티", "녹차", "홍차", "캐모마일"]):
+        return "tea"
+    if _contains_any(t, ["프라페", "스무디", "쉐이크", "빙수"]):
+        return "blended"
+    return ""
+
 def recommend_from_catalog(user_text, cls, top_menus):
     if not menu_catalog or not menu_catalog.menus:
         reco = ", ".join(top_menus[:3]) if top_menus else "아메리카노, 라떼"
@@ -632,6 +648,21 @@ def recommend_from_catalog(user_text, cls, top_menus):
 
     tokens = _expand_tokens(_tokenize_query(user_text))
     temp_hint = _temperature_hint(user_text)
+    intent_cat = _intent_category_from_text(user_text)
+    wants_decaf = _contains_any(user_text, ["디카페인", "디카", "카페인 없는"])
+    user_text_str = str(user_text)
+    exclude_last = "말고" in user_text_str or "다른" in user_text_str
+    last_recos = set(order_state.last_recommendations or [])
+    exclude_coffee = "커피" in user_text_str and "말고" in user_text_str
+    exclude_caffeine = _contains_any(user_text_str, ["카페인 말고", "카페인 없는", "카페인 빼", "카페인 제외"])
+
+    # "OO 말고"의 OO를 메뉴명으로 포함하면 제외
+    exclude_named = set()
+    if "말고" in user_text_str:
+        for m in menu_catalog.menus:
+            name = str(m.get("menu_name", "")).strip()
+            if name and name in user_text_str:
+                exclude_named.add(name)
 
     scored = []
     for m in menu_catalog.menus:
@@ -640,8 +671,32 @@ def recommend_from_catalog(user_text, cls, top_menus):
         temp = str(m.get("menu_temperature", "")).strip().upper()
         if not name:
             continue
+        if name in exclude_named:
+            continue
+        if exclude_last and name in last_recos:
+            continue
+        if not wants_decaf and "디카페인" in name:
+            continue
+        if exclude_caffeine and any(k in name for k in ["아메리카노", "콜드브루", "에스프레소", "모카", "커피", "라떼", "카페"]):
+            continue
+        if exclude_caffeine and "디카페인" in name:
+            continue
         if temp_hint and temp and temp != temp_hint:
             continue
+        if exclude_coffee and any(k in name for k in ["아메리카노", "콜드브루", "에스프레소", "모카", "커피"]):
+            continue
+
+        if intent_cat:
+            if intent_cat == "latte" and "라떼" not in name:
+                continue
+            if intent_cat == "ade" and not any(k in name for k in ["에이드", "주스", "레몬", "자몽"]):
+                continue
+            if intent_cat == "coffee" and not any(k in name for k in ["아메리카노", "콜드브루", "에스프레소", "모카"]):
+                continue
+            if intent_cat == "tea" and not any(k in name for k in ["차", "티", "녹차", "홍차", "캐모마일"]):
+                continue
+            if intent_cat == "blended" and not any(k in name for k in ["프라페", "스무디", "쉐이크", "빙수"]):
+                continue
 
         blob = f"{name} {desc}".lower()
         score = 0
@@ -657,11 +712,13 @@ def recommend_from_catalog(user_text, cls, top_menus):
     if scored:
         names = [n for _, n in scored[:3]]
         order_state.last_suggested_menu = names[0]
+        order_state.last_recommendations = names
         return f"설명으로 보면 {', '.join(names)}가 어울려요. 주문 도와드릴까요?", []
 
     reco = ", ".join(top_menus[:3]) if top_menus else "아메리카노, 라떼"
     if top_menus:
         order_state.last_suggested_menu = top_menus[0]
+        order_state.last_recommendations = top_menus[:3]
     return f"추천 메뉴는 {reco} 입니다.", []
 
 def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_menus: list):
@@ -670,8 +727,13 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
 
     # [0] 전체 삭제/초기화 직접 감지
     if _contains_any(user_text, ["모든메뉴", "전메뉴", "전체메뉴"]) or (
-        _contains_any(user_text, ["모든", "전부", "다", "전체"])
+        _contains_any(user_text, ["모든", "전부", "전체"])
         and _contains_any(user_text, ["메뉴", "주문", "장바구니"])
+        and "다른" not in str(user_text)
+    ) or (
+        "다" in str(user_text)
+        and "다른" not in str(user_text)
+        and _contains_any(user_text, ["삭제", "취소", "비워", "없애", "리셋", "초기화"])
     ):
         order_state.reset()
         return "네, 장바구니를 모두 비워드릴게요.", [{"type": "reset", "menu_name": "", "quantity": 0, "temperature": ""}]
@@ -780,12 +842,17 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
 
         if not actions: return "말씀하신 메뉴를 찾지 못했어요.", []
         
-        full_reply = ", ".join(replies)
-        if intent in ["order", "increase", "unknown"]: full_reply += " 담아드리겠습니다."
-        elif intent == "remove_item": full_reply += " 삭제했습니다."
-        elif intent == "update_order": full_reply += " 변경해 드렸습니다."
-        else: full_reply += " 빼드렸습니다."
-        return f"네, {full_reply}", actions
+        if intent in ["order", "increase", "unknown"]:
+            short_reply = "네, 처리해드렸어요."
+        elif intent == "remove_item":
+            short_reply = "네, 삭제했습니다."
+        elif intent == "update_order":
+            short_reply = "네, 변경했습니다."
+        elif intent == "decrease":
+            short_reply = "네, 수량을 줄였습니다."
+        else:
+            short_reply = "네, 처리해드렸어요."
+        return short_reply, actions
 
     if intent == "price": return answer_price(user_text, cls)
     if intent == "recommend": return recommend_from_catalog(user_text, cls, top_menus)
@@ -892,9 +959,10 @@ async def audio_loop_async():
                 print("\n" + "="*30)
                 print("👋 얼굴 인식 완료, 세션 시작")
                 print("="*40 + "\n")
-                
+
                 order_state.reset()
                 send_kiosk_action("reset", "", 0, "")
+                send_kiosk_action("open_main", "", 0, "")
                 
                 # 감정 파악
                 current_emotion = "Neutral"
@@ -932,12 +1000,12 @@ async def audio_loop_async():
                 play_tts_blocking(full_greet, r_headers)
 
             # [세션 종료]
-            elif is_in_session and (now - last_face_detected_ts > SESSION_TIMEOUT_SEC):
+            elif is_in_session and (now - last_face_detected_ts > FACE_LOST_RESET_SEC):
                 is_in_session = False
                 print("\n" + "="*40)
                 print("🔒 얼굴 인식 종료, 세션 종료")
                 print("="*40 + "\n")
-                
+
                 order_state.reset()
                 send_kiosk_action("reset", "", 0, "")
 
@@ -977,7 +1045,9 @@ async def audio_loop_async():
                     if txt == last_txt and time.time()-last_t < 1.0: continue
                     last_txt = txt; last_t = time.time()
 
+                    t_start = time.time()
                     cls = classify_text(txt, r_headers)
+                    t_nlu = time.time()
                     intent = cls.get("intent", "unknown")
                     if not _should_process_utterance(txt, intent):
                         print(f"🔇 [Filtered] {txt}")
@@ -985,7 +1055,9 @@ async def audio_loop_async():
                     print(f"🧠 [NLU] {intent} | {cls.get('order_items')}")
                     
                     top = get_recent_top_menus(os.path.join(current_dir, "order_logs.json"))
+                    t_logic = time.time()
                     reply, acts = handle_with_classifier(txt, cls, r_headers, top)
+                    t_after_logic = time.time()
                     
                     if acts:
                         for a in acts:
@@ -995,7 +1067,22 @@ async def audio_loop_async():
                         send_kiosk_action("checkout_request", "", 0, "")
 
                     if reply and not checkout_requested:
+                        t_tts = time.time()
                         play_tts_blocking(reply, r_headers)
+                        t_after_tts = time.time()
+                    else:
+                        t_tts = None
+                        t_after_tts = None
+
+                    t_end = time.time()
+                    timings = {
+                        "nlu": (t_nlu - t_start),
+                        "logic": (t_after_logic - t_logic),
+                        "actions": (t_end - t_after_logic) if not t_tts else (t_tts - t_after_logic),
+                        "tts": (t_after_tts - t_tts) if (t_tts and t_after_tts) else 0.0,
+                        "total": (t_end - t_start),
+                    }
+                    print(f"⏱️ [Timing] NLU {timings['nlu']:.3f}s | Logic {timings['logic']:.3f}s | Actions {timings['actions']:.3f}s | TTS {timings['tts']:.3f}s | Total {timings['total']:.3f}s")
 
             threading.Thread(target=nlu_worker, daemon=True).start()
 

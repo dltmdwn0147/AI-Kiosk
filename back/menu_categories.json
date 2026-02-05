@@ -1,0 +1,648 @@
+{
+  "items": [
+    {
+      "menu_name": "디카페인 아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 꿀아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 헤이즐넛아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 바닐라아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카페라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 바닐라라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 연유라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카라멜마끼아또",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카페모카",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카푸치노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 헤이즐넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 티라미수라떼",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "디카페인 메가리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 꿀아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 헤이즐넛 아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 바닐라 아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카페라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 바닐라라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카라멜마끼아또",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카페모카",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 카푸치노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 헤이즐넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "디카페인 티라미수라떼",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "수박 화채 스무디",
+      "category": "drink"
+    },
+    {
+      "menu_name": "코코넛 커피 스무디",
+      "category": "drink"
+    },
+    {
+      "menu_name": "플레인퐁크러쉬",
+      "category": "drink"
+    },
+    {
+      "menu_name": "초코허니퐁크러쉬",
+      "category": "drink"
+    },
+    {
+      "menu_name": "슈크림허니퐁크러쉬",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기퐁크러쉬",
+      "category": "drink"
+    },
+    {
+      "menu_name": "바나나퐁크러쉬",
+      "category": "drink"
+    },
+    {
+      "menu_name": "스모어블랙쿠키프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "쿠키프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기쿠키프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "민트프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "커피프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "리얼초코프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "녹차프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "유니콘프라페",
+      "category": "drink"
+    },
+    {
+      "menu_name": "스트로베리치즈홀릭",
+      "category": "drink"
+    },
+    {
+      "menu_name": "플레인요거트스무디",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기요거트스무디",
+      "category": "drink"
+    },
+    {
+      "menu_name": "망고요거트스무디",
+      "category": "drink"
+    },
+    {
+      "menu_name": "수박 주스",
+      "category": "drink"
+    },
+    {
+      "menu_name": "레드오렌지자몽주스",
+      "category": "drink"
+    },
+    {
+      "menu_name": "샤인머스켓그린주스",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기주스",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기바나나주스",
+      "category": "drink"
+    },
+    {
+      "menu_name": "메가에이드",
+      "category": "drink"
+    },
+    {
+      "menu_name": "레몬에이드",
+      "category": "other"
+    },
+    {
+      "menu_name": "블루레몬에이드",
+      "category": "drink"
+    },
+    {
+      "menu_name": "자몽에이드",
+      "category": "drink"
+    },
+    {
+      "menu_name": "청포도에이드",
+      "category": "drink"
+    },
+    {
+      "menu_name": "유니콘매직에이드(블루)",
+      "category": "drink"
+    },
+    {
+      "menu_name": "유니콘매직에이드(핑크)",
+      "category": "drink"
+    },
+    {
+      "menu_name": "체리콕",
+      "category": "drink"
+    },
+    {
+      "menu_name": "라임모히또",
+      "category": "drink"
+    },
+    {
+      "menu_name": "딸기라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "아이스초코",
+      "category": "drink"
+    },
+    {
+      "menu_name": "오레오초코라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "메가초코",
+      "category": "drink"
+    },
+    {
+      "menu_name": "녹차라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "곡물라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "고구마라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "토피넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "로얄밀크티라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "흑당라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "흑당밀크티라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "흑당버블라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "흑당버블밀크티라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "핫초코",
+      "category": "drink"
+    },
+    {
+      "menu_name": "메가초코",
+      "category": "drink"
+    },
+    {
+      "menu_name": "로얄밀크티라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "녹차라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "고구마라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "곡물라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "토피넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루오리지널",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루오리지널",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루 디카페인",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루 디카페인",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루 디카페인라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "콜드브루 디카페인라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "꿀아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "헤이즐넛아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "바닐라아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카페라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "바닐라라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "연유라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카라멜마끼야또",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카페모카",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카푸치노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "헤이즐넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "티라미수라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "메가리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "꿀아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "헤이즐넛아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "바닐라아메리카노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "큐브라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카페라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "바닐라라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카라멜마끼아또",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카페모카",
+      "category": "drink"
+    },
+    {
+      "menu_name": "카푸치노",
+      "category": "drink"
+    },
+    {
+      "menu_name": "헤이즐넛라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "티라미수라떼",
+      "category": "drink"
+    },
+    {
+      "menu_name": "트로피컬 용과 티플레져",
+      "category": "drink"
+    },
+    {
+      "menu_name": "복숭아아이스티",
+      "category": "drink"
+    },
+    {
+      "menu_name": "허니자몽블랙티",
+      "category": "drink"
+    },
+    {
+      "menu_name": "사과유자차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "유자차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "레몬차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "자몽차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "녹차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "페퍼민트",
+      "category": "drink"
+    },
+    {
+      "menu_name": "캐모마일",
+      "category": "drink"
+    },
+    {
+      "menu_name": "얼그레이",
+      "category": "drink"
+    },
+    {
+      "menu_name": "허니자몽블랙티",
+      "category": "drink"
+    },
+    {
+      "menu_name": "사과유자차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "유자차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "레몬차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "자몽차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "녹차",
+      "category": "drink"
+    },
+    {
+      "menu_name": "페퍼민트",
+      "category": "drink"
+    },
+    {
+      "menu_name": "캐모마일",
+      "category": "drink"
+    },
+    {
+      "menu_name": "얼그레이",
+      "category": "drink"
+    },
+    {
+      "menu_name": "첨벙첨벙간식꾸러미",
+      "category": "other"
+    },
+    {
+      "menu_name": "오레오초코퐁파르페",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "딸기크림퐁파르페",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "그레놀라스모어쿠키",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "크로크무슈",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "미트파이",
+      "category": "other"
+    },
+    {
+      "menu_name": "버터버터소금빵",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "제주당근에그마요샌드위치",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "허니버터피자",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "마르게리타피자",
+      "category": "other"
+    },
+    {
+      "menu_name": "경산대추과즐",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "장수사과비건젤리",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "햄앤치즈샌드",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "아이스허니와앙슈",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "몽쉘케이크",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "말차스모어쿠키",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "초코스모어쿠키",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "감자빵",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "유니콘프라페마카롱",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "쿠키프라페마카롱",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "메가초코마카롱",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "딸기요거트마카롱",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "치즈케익",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "초코케익",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "티라미수케익",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "허니브레드",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "핫도그",
+      "category": "other"
+    },
+    {
+      "menu_name": "메가쿠기(초코칩)",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "메가쿠키(마카다미아)",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "플레인크로플",
+      "category": "dessert"
+    },
+    {
+      "menu_name": "아이스크림크로플",
+      "category": "dessert"
+    }
+  ]
+}
