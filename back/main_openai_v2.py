@@ -70,6 +70,7 @@ ORDER_LOG_RETENTION_DAYS = 7
 RECOMMEND_COUNT = 3
 SESSION_TIMEOUT_SEC = 5.0
 ALLOW_BARGE_IN = False # 끼어들기 가능 : True, 불가능 : False
+FACE_AUDIO_WINDOW_SEC = 1.0 # 얼굴 감지 후 음성 입력 허용 윈도우(초)
 
 # 얼굴/감정 상태
 latest_face_data = None
@@ -84,8 +85,15 @@ socket_lock = threading.Lock()
 is_running = True
 
 # 세션 관리
-last_face_detected_ts = 0.0
-is_in_session = False
+last_face_detected_ts = 0.0   # 마지막으로 얼굴이 감지된 시각
+session_face_cache = None     # 최근 인식된 얼굴 랜드마크(임시 캐시)
+session_face_ts = 0.0         # 최근 얼굴 인식 시각
+pending_face_grace_ts = 0.0   # 얼굴 끊김 감지 후 유예 시작 시각
+FACE_GRACE_SEC_IDLE = 2.0     # 주문이 없을 때 유예 시간(초)
+FACE_GRACE_SEC_ACTIVE = 7.0   # 주문 진행 중 유예 시간(초)
+ORDER_ACTIVE_WINDOW_SEC = 30.0  # 최근 주문 활동으로 간주할 시간(초)
+last_order_activity_ts = 0.0  # 마지막 주문/수량 변경/결제 요청 시각
+is_in_session = False         # 세션 활성 여부
 
 # 오디오/통신 캐시
 recent_action_cache = {"text": "", "ts": 0.0}
@@ -94,6 +102,13 @@ tts_lock = threading.Lock()
 tts_playing_event = threading.Event()
 tts_stop_event = threading.Event()
 known_faces_cache = {"faces": [], "ts": 0.0}
+last_action_ts = 0.0      # 마지막 키오스크 액션 시각
+last_action_summary = ""  # 마지막 키오스크 액션 요약
+last_emotion_label = ""   # 최근 감정 라벨
+negative_emotion_start_ts = 0.0  # 부정 감정 지속 시작 시각
+last_emotion_prompt_ts = 0.0     # 감정 기반 오류 확인 멘트 출력 시각
+EMOTION_ISSUE_SEC = 2.0          # 부정 감정 유지 시간 기준(초)
+EMOTION_PROMPT_COOLDOWN_SEC = 15.0  # 감정 확인 멘트 재생 최소 간격(초)
 
 # ==========================================
 # [3. 상수 데이터 (힌트)]
@@ -343,6 +358,16 @@ def get_recent_top_menus_for_face(face_data: list, file_path: str, top_k: int = 
 def send_kiosk_action(action_type: str, menu_name: str, quantity: int = 1, temperature: str = ""):
     if not action_type: return
     payload = json.dumps({"type": action_type, "menu_name": menu_name, "quantity": int(quantity or 1), "temperature": temperature or ""}, ensure_ascii=False)
+    # 주문 활동 타임스탬프 갱신 (세션 유예 판단용)
+    if action_type in ["add", "inc", "dec", "set", "checkout_request"]:
+        global last_order_activity_ts
+        last_order_activity_ts = time.time()
+    # 최근 액션 기록 (오류 감지용)
+    if action_type in ["add", "inc", "dec", "set", "remove"]:
+        global last_action_ts, last_action_summary
+        last_action_ts = time.time()
+        temp_label = f" {temperature}" if temperature else ""
+        last_action_summary = f"{menu_name}{temp_label} {int(quantity or 1)}잔"
     with socket_lock:
         if kiosk_socket:
             try: kiosk_socket.sendall((payload + "\n").encode("utf-8"))
@@ -401,6 +426,8 @@ def kiosk_listener_thread(conn, addr):
                     if isinstance(items, list):
                         checkout_state["items"] = items
                         checkout_state["ts"] = time.time()
+                        global last_order_activity_ts
+                        last_order_activity_ts = time.time()
                         order_state.awaiting_confirmation = True
                         order_state.confirmation_ts = time.time()
                         summary = _format_checkout_summary(items)
@@ -641,6 +668,30 @@ def _temperature_hint(text: str) -> str:
     if any(k in text for k in ["핫", "따뜻", "뜨거", "hot"]): return "HOT"
     return ""
 
+def _is_negative_emotion(emotion: str) -> bool:
+    e = str(emotion or "").lower()
+    return any(k in e for k in ["angry", "anger", "sad", "fear", "disgust", "frustrat"])
+
+def _detect_order_issue(text: str, intent: str) -> str:
+    # 최근 주문 액션 직후 불만/오류 신호가 있으면 확인 질문으로 전환
+    action_intents = {"order", "increase", "decrease", "update_order", "remove_item", "confirm", "price"}
+    if intent in action_intents:
+        return ""
+    error_hints = ["아니", "아닌데", "틀렸", "잘못", "왜", "그게 아니", "그거 아니", "다른걸로", "다르게", "이상", "오류"]
+    if time.time() - last_action_ts > 10.0:
+        return ""
+    if not any(h in text for h in error_hints):
+        return ""
+    current_emotion = ""
+    with emotion_data_lock:
+        if latest_emotion_data:
+            current_emotion = latest_emotion_data.get("dominant_emotion", "")
+    if _is_negative_emotion(current_emotion) or any(h in text for h in ["틀렸", "잘못", "아니", "왜"]):
+        if last_action_summary:
+            return f"방금 {last_action_summary}로 처리했는데, 맞지 않나요? 원하시는 메뉴로 다시 말씀해 주세요."
+        return "방금 주문이 잘못된 것 같아요. 원하시는 메뉴로 다시 말씀해 주세요."
+    return ""
+
 def _intent_category_from_text(text: str) -> str:
     t = str(text)
     if _contains_any(t, ["달달", "달콤", "부드", "라떼", "바닐라", "흑당", "카라멜"]):
@@ -879,6 +930,8 @@ def recommend_from_catalog(user_text, cls, top_menus):
         temperature = constraints.get("temperature", "ANY")
         count = int(constraints.get("count", 3) or 3)
         last_recos = set(order_state.last_recommendations or [])
+        if not include_categories and desired_category in ["dessert", "drink"]:
+            include_categories = ["dessert", "bakery"] if desired_category == "dessert" else ["coffee", "latte", "smoothie", "ade", "frappe", "tea", "etc"]
 
         # 최소한의 퍼지 매칭으로 제외 대상 보정
         menu_names = [it.get("menu_name", "") for it in cache.get("items", []) if it.get("menu_name")]
@@ -1116,7 +1169,7 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
 # [7. 스레드 실행 (카메라, 오디오, 소켓)]
 # ==========================================
 def camera_loop_main():
-    global latest_face_data, latest_emotion_data, latest_face_count, is_running, last_face_detected_ts
+    global latest_face_data, latest_emotion_data, latest_face_count, is_running, last_face_detected_ts, session_face_cache, session_face_ts, pending_face_grace_ts
     cap = cv2.VideoCapture(0)
     if not cap.isOpened(): return
 
@@ -1145,6 +1198,10 @@ def camera_loop_main():
                     latest_face_count = cnt
                     if cnt > 0:
                         last_face_detected_ts = time.time() # 세션 관리용 갱신
+                        if res.face_landmarks and res.face_landmarks[0]:
+                            session_face_cache = [{"x": lm.x, "y": lm.y, "z": lm.z} for lm in res.face_landmarks[0]]
+                            session_face_ts = last_face_detected_ts
+                            pending_face_grace_ts = 0.0
 
                 if res.face_landmarks:
                     for i, landmarks in enumerate(res.face_landmarks):
@@ -1225,7 +1282,8 @@ async def audio_loop_async():
     # [세션 관리자] - 감정 기반 동적 인사 및 로그
     # ==========================================
     async def session_manager():
-        global is_in_session
+        global is_in_session, pending_face_grace_ts, session_face_cache, session_face_ts, last_order_activity_ts
+        global last_emotion_label, negative_emotion_start_ts, last_emotion_prompt_ts
         while is_running:
             now = time.time()
             
@@ -1237,6 +1295,7 @@ async def audio_loop_async():
                 print("="*40 + "\n")
 
                 order_state.reset()
+                last_order_activity_ts = 0.0
                 send_kiosk_action("reset", "", 0, "")
                 send_kiosk_action("open_main", "", 0, "")
                 
@@ -1275,9 +1334,73 @@ async def audio_loop_async():
                 print(f"🗣️ [AI Greeting]: {full_greet}")
                 threading.Thread(target=play_tts_blocking, args=(full_greet, r_headers), daemon=True).start()
 
-            # [세션 종료]
+            # [감정 기반 오류 확인 멘트]
+            if is_in_session:
+                current_emotion = ""
+                with emotion_data_lock:
+                    if latest_emotion_data:
+                        current_emotion = latest_emotion_data.get("dominant_emotion", "")
+                is_neg = _is_negative_emotion(current_emotion)
+                if is_neg and current_emotion != last_emotion_label:
+                    negative_emotion_start_ts = now
+                    print(f"⚠️ [Emotion] Negative detected: {current_emotion}")
+                    # 부정 감정이 감지되면 즉시 오류 확인 멘트 (조건 충족 시)
+                    if (
+                        now - last_action_ts < 12.0
+                        and not order_state.awaiting_confirmation
+                        and not tts_playing_event.is_set()
+                        and (now - last_emotion_prompt_ts >= EMOTION_PROMPT_COOLDOWN_SEC)
+                    ):
+                        last_emotion_prompt_ts = now
+                        if last_action_summary:
+                            prompt = f"방금 {last_action_summary}로 처리했는데, 맞지 않나요? 원하시는 메뉴로 다시 말씀해 주세요."
+                        else:
+                            prompt = "혹시 주문이 잘못되었나요? 원하시는 메뉴로 다시 말씀해 주세요."
+                        threading.Thread(target=play_tts_blocking, args=(prompt, r_headers), daemon=True).start()
+                elif not is_neg:
+                    negative_emotion_start_ts = 0.0
+                last_emotion_label = current_emotion
+
+                if (
+                    is_neg
+                    and negative_emotion_start_ts
+                    and (now - negative_emotion_start_ts >= EMOTION_ISSUE_SEC)
+                    and (now - last_action_ts < 12.0)
+                    and not order_state.awaiting_confirmation
+                    and not tts_playing_event.is_set()
+                    and (now - last_emotion_prompt_ts >= EMOTION_PROMPT_COOLDOWN_SEC)
+                ):
+                    last_emotion_prompt_ts = now
+                    prompt = "혹시 주문이 잘못되었나요? 원하시는 메뉴로 다시 말씀해 주세요."
+                    threading.Thread(target=play_tts_blocking, args=(prompt, r_headers), daemon=True).start()
+
+            # [세션 종료 - 얼굴 유예 처리]
             elif is_in_session and (now - last_face_detected_ts > SESSION_TIMEOUT_SEC):
+                if pending_face_grace_ts == 0.0:
+                    pending_face_grace_ts = now
+                # 주문 진행 여부에 따라 유예 시간을 다르게 적용
+                has_active_order = False
+                try:
+                    recent_order_activity = (now - last_order_activity_ts) < ORDER_ACTIVE_WINDOW_SEC
+                    has_active_order = bool(
+                        order_state.pending_menu_name
+                        or order_state.awaiting_confirmation
+                        or recent_order_activity
+                    )
+                except Exception:
+                    has_active_order = False
+                grace_sec = FACE_GRACE_SEC_ACTIVE if has_active_order else FACE_GRACE_SEC_IDLE
+                if pending_face_grace_ts and (now - pending_face_grace_ts < grace_sec):
+                    # 유예 기간: 얼굴이 다시 잡히면 유지
+                    if session_face_cache and latest_face_data:
+                        if last_face_detected_ts > pending_face_grace_ts and _face_similarity(latest_face_data, session_face_cache) <= 0.01:
+                            pending_face_grace_ts = 0.0
+                            continue
+                    await asyncio.sleep(0.1)
+                    continue
                 is_in_session = False
+                pending_face_grace_ts = 0.0
+                last_order_activity_ts = 0.0
                 print("\n" + "="*40)
                 print("🔒 얼굴 인식 종료, 세션 종료")
                 print("="*40 + "\n")
@@ -1326,6 +1449,22 @@ async def audio_loop_async():
                     cls = classify_text(txt, r_headers)
                     t_nlu = time.time()
                     intent = cls.get("intent", "unknown")
+                    issue_reply = _detect_order_issue(txt, intent)
+                    if issue_reply:
+                        print(f"🧠 [NLU] {intent} | {cls.get('order_items')}")
+                        t_tts = time.time()
+                        play_tts_blocking(issue_reply, r_headers)
+                        t_after_tts = time.time()
+                        t_end = time.time()
+                        timings = {
+                            "nlu": (t_nlu - t_start),
+                            "logic": 0.0,
+                            "actions": 0.0,
+                            "tts": (t_after_tts - t_tts),
+                            "total": (t_end - t_start),
+                        }
+                        print(f"⏱️ [Timing] NLU {timings['nlu']:.3f}s | Logic {timings['logic']:.3f}s | Actions {timings['actions']:.3f}s | TTS {timings['tts']:.3f}s | Total {timings['total']:.3f}s")
+                        continue
                     if not _should_process_utterance(txt, intent):
                         print(f"🔇 [Filtered] {txt}")
                         continue
@@ -1370,6 +1509,9 @@ async def audio_loop_async():
             async def send_audio():
                 while is_running:
                     if not ALLOW_BARGE_IN and tts_playing_event.is_set():
+                        await asyncio.sleep(0.1); continue
+                    # 얼굴이 감지된 상태에서만 음성 입력 허용
+                    if time.time() - last_face_detected_ts > FACE_AUDIO_WINDOW_SEC:
                         await asyncio.sleep(0.1); continue
                     try:
                         data = await asyncio.to_thread(mic.read, CHUNK, exception_on_overflow=False)

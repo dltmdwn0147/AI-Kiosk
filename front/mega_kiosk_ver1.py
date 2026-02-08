@@ -454,6 +454,9 @@ class WindowClass(QMainWindow, main_page_class):
         super().__init__()
         self.setupUi(self)
 
+        if os.getenv("KIOSK_USE_DEFAULT_FONT", "1") == "1":
+            self._apply_font_fallback()
+
         self._reset_cart_on_start()
 
         self.comm_thread = CommThread()
@@ -553,6 +556,12 @@ class WindowClass(QMainWindow, main_page_class):
         self.card_label.setCursor(QCursor(QPixmap(os.path.join(IMG_DIR, 'qt자료/payment_phone.png')).scaled(120, 100)))
         self.horizontalSlider.setCursor(QCursor(QPixmap(os.path.join(IMG_DIR, 'qt자료/matercard.png')).scaled(80, 70)))
 
+    def _apply_font_fallback(self):
+        default_font = self.font()
+        for i in range(1, 37):
+            label = getattr(self, f"menu_name_label_{i}", None)
+            if label:
+                label.setFont(default_font)
     def _reset_cart_on_start(self):
         self.drinks_cart_list_widget.clear()
         con = sqlite3.connect(DB_PATH)
@@ -603,6 +612,10 @@ class WindowClass(QMainWindow, main_page_class):
                     return
                 if action_type == "open_main":
                     self.stackedWidget.setCurrentWidget(self.main_page)
+                    try:
+                        self.category_btn_1.click()
+                    except Exception:
+                        pass
                     return
                 if action_type:
                     self._apply_cart_action(action_type, menu_name, quantity, temperature)
@@ -1272,6 +1285,14 @@ class WindowClass(QMainWindow, main_page_class):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    use_default_font = os.getenv("KIOSK_USE_DEFAULT_FONT", "1") == "1"
+    if use_default_font:
+        if sys.platform == "darwin":
+            app.setFont(QFont("Apple SD Gothic Neo", 12))
+        elif sys.platform.startswith("win"):
+            app.setFont(QFont("Malgun Gothic", 10))
+        else:
+            app.setFont(QFont())
     myWindow = WindowClass()
     myWindow.show()
     app.exec_()
