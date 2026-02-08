@@ -795,7 +795,7 @@ def _load_menu_embedding_cache(file_path: str):
     except Exception:
         return None
 
-def _llm_reco_constraints(user_text: str, headers: dict):
+def _llm_reco_constraints(user_text: str, headers: dict, age_pref: str = ""):
     schema = {
         "type": "object",
         "properties": {
@@ -827,6 +827,7 @@ def _llm_reco_constraints(user_text: str, headers: dict):
         "- desired_category: dessert(디저트) / drink(음료) / any\n"
         "- temperature: ICE/HOT/ANY\n"
         "- count: 추천 개수(없으면 3)\n"
+        f"{'연령대 기반 추천 규칙: ' + age_pref + chr(10) if age_pref else ''}"
     )
     payload = {
         "model": CHAT_MODEL,
@@ -946,6 +947,21 @@ def _load_menu_subcategory_cache(file_path: str):
     except Exception:
         return None
 
+def _age_pref_prompt():
+    with age_data_lock:
+        age_group = latest_age_group
+    if not age_group:
+        return ""
+    try:
+        decade = int(age_group.replace("대", ""))
+    except Exception:
+        return ""
+    if decade >= 40:
+        return "연령대가 높을수록 커피보다 따뜻한 차/티를 우선 추천한다."
+    if 10 <= decade < 20:
+        return "10대는 카페인 음료보다 논카페인(차/주스/스무디)을 우선 추천한다."
+    return ""
+
 def recommend_from_catalog(user_text, cls, top_menus):
     try:
         if not menu_catalog or not menu_catalog.menus:
@@ -967,7 +983,8 @@ def recommend_from_catalog(user_text, cls, top_menus):
         if not subcat_cache:
             subcat_cache = {"items": []}
 
-        constraints = _llm_reco_constraints(user_text, rest_headers)
+        age_pref = _age_pref_prompt()
+        constraints = _llm_reco_constraints(user_text, rest_headers, age_pref)
         query_vec = _embed_text(user_text, rest_headers)
 
         include_terms = [t for t in constraints.get("include_terms", []) if t]
