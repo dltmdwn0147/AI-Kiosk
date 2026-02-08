@@ -36,3 +36,4 @@ ENV/
 # 프로젝트 특정 폴더 (대기 및 테스트 코드)
 back/대기/
 back/test/
+back/face_age/

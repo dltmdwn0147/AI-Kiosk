@@ -562,6 +562,8 @@ class WindowClass(QMainWindow, main_page_class):
             label = getattr(self, f"menu_name_label_{i}", None)
             if label:
                 label.setFont(default_font)
+                if not label.styleSheet():
+                    label.setStyleSheet("color: rgb(0, 0, 0);")
     def _reset_cart_on_start(self):
         self.drinks_cart_list_widget.clear()
         con = sqlite3.connect(DB_PATH)
