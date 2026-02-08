@@ -57,7 +57,7 @@ graph TD
         
         OpenAI -->|NLU 판단| OrderFunc[order_control]
         OrderFunc -->|Read| GlobalData
-        OrderFunc -->|Save (결제 확인)| LogFile[order_logs.json]
+        OrderFunc -->|Save 결제확인| LogFile[order_logs.json]
     end
     
     OrderFunc -->|Socket Signal| KioskClient[PyQt Kiosk Client]
