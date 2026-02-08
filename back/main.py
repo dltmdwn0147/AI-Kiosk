@@ -32,6 +32,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import websockets
 from difflib import SequenceMatcher
+from PIL import Image
 
 # ==========================================
 # [1. 환경 설정]
@@ -42,6 +43,14 @@ try:
 except ImportError:
     DEEPFACE_AVAILABLE = False
     print("⚠️ DeepFace가 설치되지 않았습니다. 감정 인식 기능이 비활성화됩니다.")
+
+try:
+    import torch
+    from torchvision import models, transforms
+    TORCH_AVAILABLE = True
+except ImportError:
+    TORCH_AVAILABLE = False
+    print("⚠️ torch/torchvision이 설치되지 않았습니다. 연령 추정 기능이 비활성화됩니다.")
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, ".."))
@@ -78,6 +87,9 @@ latest_emotion_data = None
 latest_face_count = 0
 face_data_lock = threading.Lock()
 emotion_data_lock = threading.Lock()
+age_data_lock = threading.Lock()
+latest_age_value = None
+latest_age_group = ""
 
 # 시스템 상태
 kiosk_socket = None
@@ -109,6 +121,11 @@ negative_emotion_start_ts = 0.0  # 부정 감정 지속 시작 시각
 last_emotion_prompt_ts = 0.0     # 감정 기반 오류 확인 멘트 출력 시각
 EMOTION_ISSUE_SEC = 2.0          # 부정 감정 유지 시간 기준(초)
 EMOTION_PROMPT_COOLDOWN_SEC = 15.0  # 감정 확인 멘트 재생 최소 간격(초)
+
+# 연령 추정 모델
+AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_model_epoch_10.pt"))
+age_model = None
+age_transform = None
 
 # ==========================================
 # [3. 상수 데이터 (힌트)]
@@ -472,6 +489,41 @@ def _is_known_face(face_data: list, threshold: float = 0.01) -> bool:
     for known in known_faces:
         if _face_similarity(face_data, known) <= threshold: return True
     return False
+
+def _load_age_model():
+    global age_model, age_transform
+    if not TORCH_AVAILABLE:
+        return
+    if not os.path.exists(AGE_MODEL_PATH):
+        print(f"⚠️ 연령 모델 파일 없음: {AGE_MODEL_PATH}")
+        return
+    model = models.resnet50(weights=None)
+    model.fc = torch.nn.Linear(model.fc.in_features, 1)
+    ckpt = torch.load(AGE_MODEL_PATH, map_location="cpu")
+    state = ckpt["model"] if isinstance(ckpt, dict) and "model" in ckpt else ckpt
+    model.load_state_dict(state)
+    model.eval()
+    age_model = model
+    age_transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+    print(f"✅ 연령 모델 로드 완료: {AGE_MODEL_PATH}")
+
+def _predict_age_group(face_crop_bgr: np.ndarray):
+    if not TORCH_AVAILABLE or age_model is None or age_transform is None:
+        return None, ""
+    if face_crop_bgr is None or face_crop_bgr.size == 0:
+        return None, ""
+    img_rgb = cv2.cvtColor(face_crop_bgr, cv2.COLOR_BGR2RGB)
+    pil = Image.fromarray(img_rgb)
+    x = age_transform(pil).unsqueeze(0)
+    with torch.no_grad():
+        pred = age_model(x).squeeze().item()
+    age = max(0, pred)
+    group = int(age // 10) * 10
+    return age, f"{group}대"
 
 # ==========================================
 # [5. 클래스 정의]
@@ -1170,6 +1222,7 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
 # ==========================================
 def camera_loop_main():
     global latest_face_data, latest_emotion_data, latest_face_count, is_running, last_face_detected_ts, session_face_cache, session_face_ts, pending_face_grace_ts
+    global latest_age_value, latest_age_group
     cap = cv2.VideoCapture(0)
     if not cap.isOpened(): return
 
@@ -1181,6 +1234,7 @@ def camera_loop_main():
     except: pass
 
     frame_count = 0
+    age_last_print_ts = 0.0
     try:
         while is_running:
             success, image = cap.read()
@@ -1228,11 +1282,32 @@ def camera_loop_main():
                                             latest_emotion_data = {"dominant_emotion": res_emo.get("dominant_emotion", "Neutral")}
                                 except: pass
 
+                            if TORCH_AVAILABLE and age_model is not None and i == 0:
+                                try:
+                                    face_crop_bgr = image[bbox[1]:bbox[1]+bbox[3], bbox[0]:bbox[0]+bbox[2]]
+                                    age_val, age_group = _predict_age_group(face_crop_bgr)
+                                    if age_group:
+                                        with age_data_lock:
+                                            latest_age_value = age_val
+                                            latest_age_group = age_group
+                                        now_ts = time.time()
+                                        if now_ts - age_last_print_ts > 1.0:
+                                            age_last_print_ts = now_ts
+                                            print(f"🧓 [Age] {age_group} (예측 {age_val:.1f})")
+                                except Exception:
+                                    pass
+
             cv2.putText(image, f"Faces: {latest_face_count}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
             emo_str = "None"
             with emotion_data_lock:
                 if latest_emotion_data: emo_str = latest_emotion_data.get("dominant_emotion", "None")
             cv2.putText(image, f"Emotion: {emo_str}", (20, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+            age_group_text = ""
+            with age_data_lock:
+                if latest_age_group:
+                    age_group_text = latest_age_group
+            if age_group_text:
+                cv2.putText(image, f"Age: {age_group_text}", (20, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 200, 255), 2)
 
             cv2.imshow("Kiosk Eyes", image)
             if cv2.waitKey(1) & 0xFF == 27: is_running = False; break
@@ -1582,6 +1657,7 @@ if __name__ == "__main__":
         print("✅ [Subcategories] menu_subcategories.json 생성 완료")
         sys.exit(0)
 
+    _load_age_model()
     threading.Thread(target=audio_thread_entry, daemon=True).start()
     threading.Thread(target=socket_thread, daemon=True).start()
     camera_loop_main()

@@ -54,7 +54,7 @@ def build_model():
 def train_one_epoch(model, loader, optimizer, device, loss_fn):
     model.train()
     total_loss = 0.0
-    for x, y in loader:
+    for step, (x, y) in enumerate(loader, start=1):
         x = x.to(device)
         y = y.to(device)
         pred = model(x).squeeze(1)
@@ -63,6 +63,8 @@ def train_one_epoch(model, loader, optimizer, device, loss_fn):
         loss.backward()
         optimizer.step()
         total_loss += loss.item() * x.size(0)
+        if step % 50 == 0:
+            print(f"  - train step {step}/{len(loader)} loss={loss.item():.4f}")
     return total_loss / len(loader.dataset)
 
 
@@ -71,7 +73,7 @@ def evaluate(model, loader, device, loss_fn):
     model.eval()
     total_loss = 0.0
     total_mae = 0.0
-    for x, y in loader:
+    for step, (x, y) in enumerate(loader, start=1):
         x = x.to(device)
         y = y.to(device)
         pred = model(x).squeeze(1)
@@ -79,6 +81,8 @@ def evaluate(model, loader, device, loss_fn):
         mae = torch.mean(torch.abs(pred - y))
         total_loss += loss.item() * x.size(0)
         total_mae += mae.item() * x.size(0)
+        if step % 50 == 0:
+            print(f"  - val step {step}/{len(loader)} loss={loss.item():.4f}")
     n = len(loader.dataset)
     return total_loss / n, total_mae / n
 
@@ -92,10 +96,17 @@ def main():
     parser.add_argument("--val-split", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--output", default="back/age_model.pt")
+    parser.add_argument("--num-workers", type=int, default=0, help="DataLoader workers (macOS permission issue -> 0 권장)")
     args = parser.parse_args()
 
     set_seed(args.seed)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    if torch.backends.mps.is_available():
+        device = "mps"
+    elif torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
+    print(f"✅ device: {device}")
 
     train_tf = transforms.Compose([
         transforms.Resize((224, 224)),
@@ -116,8 +127,8 @@ def main():
     # use val transforms
     val_ds.dataset.transform = val_tf
 
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=2)
-    val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=2)
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
+    val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
 
     model = build_model().to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)

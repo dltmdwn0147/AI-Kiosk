@@ -54,9 +54,12 @@ graph TD
         
         Cam -->|Video Frame| CVThread[Camera Thread]
         CVThread -->|Face Landmarks| GlobalData[(Shared Memory)]
+        CVThread -->|Face Crop| AgeModel[Age Model ResNet50]
+        AgeModel -->|Age Group| GlobalData
         
         OpenAI -->|NLU 판단| OrderFunc[order_control]
         OrderFunc -->|Read| GlobalData
+        OrderFunc -->|Age Based Recommend| OpenAI
         OrderFunc -->|Save 결제확인| LogFile[order_logs.json]
     end
     
