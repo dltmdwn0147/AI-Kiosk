@@ -40,7 +40,9 @@ OpenAI **Realtime API**를 활용하여 초저지연(Low Latency) 음성 대화�
 
 ## 📊 System Architecture (시스템 구조)
 
-```
+<div align="center">
+
+```mermaid
 graph TD
     User((User/Guest)) -->|Voice| Mic[Microphone]
     User -->|Face| Cam[Webcam]
@@ -61,6 +63,8 @@ graph TD
     OrderFunc -->|Socket Signal| KioskClient[PyQt Kiosk Client]
     KioskClient -->|Display| Screen[Kiosk Screen]
 ```
+
+</div>
 
 ---
 
