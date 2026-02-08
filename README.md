@@ -50,7 +50,7 @@ graph TD
     subgraph "AI Kiosk Server (Python)"
         direction TB
         Mic -->|Audio Stream| AsyncLoop[Asyncio Audio Loop]
-        AsyncLoop <-->|Realtime API (WebSocket)| OpenAI[OpenAI Realtime]
+        AsyncLoop <-->|Realtime API WebSocket| OpenAI[OpenAI Realtime]
         
         Cam -->|Video Frame| CVThread[Camera Thread]
         CVThread -->|Face Landmarks| GlobalData[(Shared Memory)]
