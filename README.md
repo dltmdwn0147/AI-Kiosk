@@ -178,7 +178,7 @@ python main_openai_v2.py --build-subcategories
 **macOS / Windows 공통**
 ```bash
 cd back
-python main_openai.py
+python main.py
 ```
 
 **실행 시 확인 사항:**
