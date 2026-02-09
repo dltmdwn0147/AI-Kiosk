@@ -163,9 +163,9 @@ python back/download_model.py
 **macOS / Windows 공통**:
 ```bash
 cd back
-python main_openai_v2.py --build-embeddings
-python main_openai_v2.py --build-categories
-python main_openai_v2.py --build-subcategories
+python main.py --build-embeddings
+python main.py --build-categories
+python main.py --build-subcategories
 ```
 
 생성되는 파일:
@@ -236,9 +236,14 @@ pip install pyaudio
 ```
 AI-Kiosk/
 ├── back/                     # Backend 서버 코드
-│   ├── main.py               # 메인 서버 로직 (Gemini 기반, 대체 실행용)
-│   ├── main_openai.py         # 메인 서버 로직 (OpenAI Realtime, NLU/TTS, 카메라 스레드)
+│   ├── main.py               # 메인 서버 로직 (OpenAI Realtime, NLU/TTS, 카메라/연령 추정)
+│   ├── age_check.py          # 연령 모델 카메라 테스트
+│   ├── train_age_model.py    # 연령 모델 학습 스크립트
 │   ├── mega_coffee_menu.json # 메뉴 데이터 (JSON)
+│   ├── menu_embeddings.json  # 메뉴 임베딩 캐시 (빌드 필요)
+│   ├── menu_categories.json  # 메뉴 카테고리 캐시 (빌드 필요)
+│   ├── menu_subcategories.json # 메뉴 서브카테고리 캐시 (빌드 필요)
+│   ├── face_landmarker.task  # Face Landmarker 모델 (다운로드 필요)
 │   ├── excel_to_JSON.py      # 엑셀 → JSON 변환 스크립트
 │
 ├── front/                   # Frontend 키오스크 클라이언트
