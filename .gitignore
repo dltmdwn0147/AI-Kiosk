@@ -42,3 +42,4 @@ back/face_age/
 back/age_model_batch_8_epochs_10.pt
 back/age_*.pt
 !back/age_decade_model_batch32_epochs100.pt
+back/order_logs.json

@@ -21,13 +21,16 @@ class ShoppingItemWidget(QWidget):
         self.price_btn = btn
         self.name_label = QLabel(name)
         self.name_label.setFixedSize(220, 40)
+        self.name_label.setStyleSheet('color: rgb(0, 0, 0);')
 
         self.quantity_label = QLabel('1')
         self.quantity_label.setFixedSize(30, 40)
         self.quantity_label.setAlignment(Qt.AlignCenter)
+        self.quantity_label.setStyleSheet('color: rgb(0, 0, 0);')
 
         self.index_label = QLabel(idx)
         self.index_label.setFixedSize(30, 40)
+        self.index_label.setStyleSheet('color: rgb(0, 0, 0);')
 
         self.price_label = QLabel(price + '원')
         self.price_label.setStyleSheet('color:rgb(229, 79, 65)')
@@ -161,4 +164,3 @@ def add_shopping_item_to_listwidget(list_widget, idx, name, price, label, btn):
 
     list_widget.addItem(item)
     list_widget.setItemWidget(item, item_widget)
-

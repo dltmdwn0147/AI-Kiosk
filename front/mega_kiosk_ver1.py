@@ -300,6 +300,7 @@ class Option_Class(QDialog, choose_option_class):
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.move(30, 40)
+        self._ensure_option_text_color()
 
         data = parent.send_info
         self.drink_name = data['menu_name_x'].to_string(index=False)
@@ -349,6 +350,13 @@ class Option_Class(QDialog, choose_option_class):
 
         # DB 연결 수정됨
         self.con = sqlite3.connect(DB_PATH)
+
+    def _ensure_option_text_color(self):
+        for w in self.findChildren((QLabel, QPushButton)):
+            style = w.styleSheet() or ""
+            if "color:" in style:
+                continue
+            w.setStyleSheet((style + "; color: rgb(0, 0, 0);").strip("; "))
 
     def set_extra_charge(self):
         # CSV 경로 수정됨
@@ -454,8 +462,19 @@ class WindowClass(QMainWindow, main_page_class):
         super().__init__()
         self.setupUi(self)
 
+        resizable = os.getenv("KIOSK_RESIZABLE", "1") == "1"
+        if resizable:
+            self.setMinimumSize(0, 0)
+            self.setMaximumSize(16777215, 16777215)
+            self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            if hasattr(self, "centralwidget"):
+                self.centralwidget.setMinimumSize(0, 0)
+                self.centralwidget.setMaximumSize(16777215, 16777215)
+                self.centralwidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         if os.getenv("KIOSK_USE_DEFAULT_FONT", "1") == "1":
             self._apply_font_fallback()
+            self._replace_pretendard_fonts()
+            self._ensure_text_color()
 
         self._reset_cart_on_start()
 
@@ -465,7 +484,8 @@ class WindowClass(QMainWindow, main_page_class):
 
         self.stackedWidget.setCurrentIndex(0)
         self.set_ad_image()
-        self.setWindowFlags(Qt.FramelessWindowHint)
+        if not resizable:
+            self.setWindowFlags(Qt.FramelessWindowHint)
         self.move(10,30)
 
         self.ad_label.mousePressEvent = lambda event: (self.stackedWidget.setCurrentWidget(self.main_page))
@@ -541,6 +561,10 @@ class WindowClass(QMainWindow, main_page_class):
             lambda: self.stackedWidget.setCurrentWidget(self.payment_choose_page))
         self.card_img_frame.mousePressEvent = lambda event: self.mobile_pay_msgbox()
         self.barcode_type = None
+
+        # 카드 결제 승인요청 버튼 (UI 오브젝트명: order_btn)
+        if hasattr(self, "order_btn"):
+            self.order_btn.clicked.connect(self.handle_card_payment_confirm)
         
         self.use_coupon.clicked.connect(self.askRcpt)
         self.cancel_btn_5.clicked.connect(
@@ -564,6 +588,23 @@ class WindowClass(QMainWindow, main_page_class):
                 label.setFont(default_font)
                 if not label.styleSheet():
                     label.setStyleSheet("color: rgb(0, 0, 0);")
+
+    def _replace_pretendard_fonts(self):
+        base = self.font()
+        for w in self.findChildren(QWidget):
+            f = w.font()
+            if "Pretendard" in f.family():
+                new_f = QFont(base.family(), f.pointSize())
+                new_f.setBold(f.bold())
+                new_f.setWeight(f.weight())
+                w.setFont(new_f)
+
+    def _ensure_text_color(self):
+        for w in self.findChildren((QLabel, QPushButton)):
+            style = w.styleSheet() or ""
+            if "color:" in style:
+                continue
+            w.setStyleSheet((style + "; color: rgb(0, 0, 0);").strip("; "))
     def _reset_cart_on_start(self):
         self.drinks_cart_list_widget.clear()
         con = sqlite3.connect(DB_PATH)
@@ -601,6 +642,10 @@ class WindowClass(QMainWindow, main_page_class):
                     quantity = 1
                 if action_type == "checkout_confirm":
                     self.stackedWidget.setCurrentWidget(self.payment_choose_page)
+                    return
+                if action_type == "open_card_payment":
+                    self.stackedWidget.setCurrentWidget(self.payment_choose_page)
+                    self.move_to_payment_page("신용/체크카드", 1)
                     return
                 if action_type == "checkout_cancel":
                     self.stackedWidget.setCurrentWidget(self.order_check_page)
@@ -905,6 +950,13 @@ class WindowClass(QMainWindow, main_page_class):
                 if self.barcode_type == 'qr_payment':
                     coupon_info = [str(self.get_total_price() - self.get_discount_price()) + '원', str(randint(1, 3)), card_num]
                     self.set_number_in_qr_payment_table(3, coupon_info)
+                # 카드 승인 완료: 백엔드에 결제 확인 전송 + 초기화면 복귀
+                try:
+                    self.comm_thread.send_message({"type": "checkout_confirm"})
+                except Exception:
+                    pass
+                self._reset_cart_on_start()
+                self.stackedWidget.setCurrentWidget(self.opening_page)
             else:
                 msg_box_page = MSG_Dialog(self, 6)
                 msg_box_page.exec_()
@@ -931,9 +983,15 @@ class WindowClass(QMainWindow, main_page_class):
         con.commit()
         con.close()
         discount_p = order_df.loc[0, 'discount_price']
-        if discount_p == None:
-            discount_p = 0
-        return discount_p
+        if discount_p is None:
+            return 0
+        try:
+            return int(discount_p)
+        except Exception:
+            try:
+                return int(str(discount_p).strip() or 0)
+            except Exception:
+                return 0
 
     def payment_choose_signal(self):
         # CSV 경로 수정됨
@@ -1006,10 +1064,22 @@ class WindowClass(QMainWindow, main_page_class):
         self.card_payment_table_widget.setRowCount(3)
         self.card_payment_table_widget.setColumnCount(1)
         self.card_payment_table_widget.horizontalHeader().setVisible(False)
+        self.card_payment_table_widget.setStyleSheet("QTableWidget { color: rgb(0, 0, 0); }")
+        self.card_payment_table_widget.setVerticalHeaderLabels(["총 결제금액", "할부개월", "카드번호"])
+        self.card_payment_table_widget.verticalHeader().setStyleSheet("QHeaderView::section { color: rgb(0, 0, 0); }")
         self.card_payment_table_widget.setItem(0, 0, QtWidgets.QTableWidgetItem(str(f_price) + '원'))
         self.card_payment_table_widget.setItem(1, 0, QtWidgets.QTableWidgetItem('0개월'))
         self.card_payment_table_widget.setItem(2, 0, QtWidgets.QTableWidgetItem(card_num))
         self.card_payment_table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def handle_card_payment_confirm(self):
+        # 카드 결제 승인 완료 처리: 백엔드 통지 + 초기화면 복귀
+        try:
+            self.comm_thread.send_message({"type": "checkout_confirm"})
+        except Exception:
+            pass
+        self._reset_cart_on_start()
+        self.stackedWidget.setCurrentWidget(self.opening_page)
 
     def make_random_card_num(self):
         random_card_num = [str(randint(1000, 9999)) for _ in range(4)]

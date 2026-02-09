@@ -102,6 +102,7 @@ FACE_GRACE_SEC_ACTIVE = 7.0   # 주문 진행 중 유예 시간(초)
 ORDER_ACTIVE_WINDOW_SEC = 30.0  # 최근 주문 활동으로 간주할 시간(초)
 last_order_activity_ts = 0.0  # 마지막 주문/수량 변경/결제 요청 시각
 is_in_session = False         # 세션 활성 여부
+awaiting_payment_method = False  # 결제수단 선택 대기 상태
 
 # 오디오/통신 캐시
 recent_action_cache = {"text": "", "ts": 0.0}
@@ -117,6 +118,7 @@ negative_emotion_start_ts = 0.0  # 부정 감정 지속 시작 시각
 last_emotion_prompt_ts = 0.0     # 감정 기반 오류 확인 멘트 출력 시각
 EMOTION_ISSUE_SEC = 2.0          # 부정 감정 유지 시간 기준(초)
 EMOTION_PROMPT_COOLDOWN_SEC = 15.0  # 감정 확인 멘트 재생 최소 간격(초)
+ENABLE_NEGATIVE_EMOTION_PROMPT = False  # 부정 감정 기반 주문 오류 확인 멘트 토글
 
 # 연령 추정 모델
 AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_decade_model_batch32_epochs100.pt"))
@@ -418,6 +420,7 @@ def _format_checkout_summary(items: list) -> str:
     return "주문하신 내역은 " + ", ".join(parts) + " 맞으실까요?"
 
 def kiosk_listener_thread(conn, addr):
+    global kiosk_socket, awaiting_payment_method
     buffer = ""
     try:
         while is_running:
@@ -449,6 +452,15 @@ def kiosk_listener_thread(conn, addr):
                         print(f"🧾 [Checkout] {summary}")
                         if rest_headers:
                             play_tts_blocking(summary, rest_headers)
+                if payload.get("type") == "checkout_confirm":
+                    items = checkout_state.get("items", [])
+                    if items:
+                        log_checkout_items(items)
+                        print("✅ [Order Log] 저장 완료: 승인요청 결제")
+                    checkout_state["items"] = []
+                    order_state.awaiting_confirmation = False
+                    order_state.confirmation_ts = 0.0
+                    awaiting_payment_method = False
     except Exception:
         pass
     finally:
@@ -748,6 +760,12 @@ def _detect_order_issue(text: str, intent: str) -> str:
         return "방금 주문이 잘못된 것 같아요. 원하시는 메뉴로 다시 말씀해 주세요."
     return ""
 
+def _detect_payment_method(text: str) -> str:
+    t = str(text)
+    if any(k in t for k in ["신용", "체크", "카드", "카드로", "카드결제"]):
+        return "card"
+    return ""
+
 def _intent_category_from_text(text: str) -> str:
     t = str(text)
     if _contains_any(t, ["달달", "달콤", "부드", "라떼", "바닐라", "흑당", "카라멜"]):
@@ -966,19 +984,26 @@ def _age_pref_prompt():
         return "10대는 카페인 음료보다 논카페인(차/주스/스무디)을 우선 추천한다."
     return ""
 
-def _age_based_reco_adjust(include_categories, exclude_categories):
+def _age_based_reco_adjust(include_categories, exclude_categories, desired_category: str):
     # 최소한의 안전장치만 적용 (프롬프트 우선)
     with age_data_lock:
         age_group = latest_age_group
     if not age_group:
+        return include_categories, exclude_categories
+    if desired_category and desired_category != "any":
+        return include_categories, exclude_categories
+    if include_categories:
         return include_categories, exclude_categories
     try:
         decade = int(age_group.replace("대", ""))
     except Exception:
         return include_categories, exclude_categories
     # 40대 이상일 때만 'tea'를 우선 포함하고 나머지는 강제 제외하지 않음
-    if decade >= 40 and not include_categories:
+    if decade >= 40:
         include_categories = ["tea"]
+    else:
+        # 기본 추천은 디저트보다 음료를 우선
+        include_categories = ["coffee", "latte", "smoothie", "ade", "frappe", "tea", "etc"]
     return include_categories, exclude_categories
 
 def recommend_from_catalog(user_text, cls, top_menus):
@@ -1018,7 +1043,7 @@ def recommend_from_catalog(user_text, cls, top_menus):
         temperature = constraints.get("temperature", "ANY")
         count = int(constraints.get("count", 3) or 3)
         last_recos = set(order_state.last_recommendations or [])
-        include_categories, exclude_categories = _age_based_reco_adjust(include_categories, exclude_categories)
+        include_categories, exclude_categories = _age_based_reco_adjust(include_categories, exclude_categories, desired_category)
         if not include_categories and desired_category in ["dessert", "drink"]:
             include_categories = ["dessert", "bakery"] if desired_category == "dessert" else ["coffee", "latte", "smoothie", "ade", "frappe", "tea", "etc"]
 
@@ -1145,7 +1170,9 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
                 log_checkout_items(checkout_state["items"])
                 checkout_state["items"] = []
             send_kiosk_action("checkout_confirm", "", 0, "")
-            return "네, 주문 확인되었습니다. 결제 화면으로 안내해 드릴게요.", []
+            global awaiting_payment_method
+            awaiting_payment_method = True
+            return "네, 주문 확인되었습니다. 어떤 수단을 선택하시겠어요?", []
         if _contains_any(user_text, NO_HINTS):
             order_state.awaiting_confirmation = False
             checkout_state["items"] = []
@@ -1464,7 +1491,8 @@ async def audio_loop_async():
                     print(f"⚠️ [Emotion] Negative detected: {current_emotion}")
                     # 부정 감정이 감지되면 즉시 오류 확인 멘트 (조건 충족 시)
                     if (
-                        now - last_action_ts < 12.0
+                        ENABLE_NEGATIVE_EMOTION_PROMPT
+                        and now - last_action_ts < 12.0
                         and not order_state.awaiting_confirmation
                         and not tts_playing_event.is_set()
                         and (now - last_emotion_prompt_ts >= EMOTION_PROMPT_COOLDOWN_SEC)
@@ -1480,7 +1508,8 @@ async def audio_loop_async():
                 last_emotion_label = current_emotion
 
                 if (
-                    is_neg
+                    ENABLE_NEGATIVE_EMOTION_PROMPT
+                    and is_neg
                     and negative_emotion_start_ts
                     and (now - negative_emotion_start_ts >= EMOTION_ISSUE_SEC)
                     and (now - last_action_ts < 12.0)
@@ -1550,6 +1579,7 @@ async def audio_loop_async():
             }))
 
             def nlu_worker():
+                global awaiting_payment_method
                 last_txt = ""
                 last_t = 0
                 while is_running:
@@ -1587,9 +1617,30 @@ async def audio_loop_async():
                         print(f"🔇 [Filtered] {txt}")
                         continue
                     print(f"🧠 [NLU] {intent} | {cls.get('order_items')}")
+
+                    if awaiting_payment_method:
+                        method = _detect_payment_method(txt)
+                        if method == "card":
+                            awaiting_payment_method = False
+                            send_kiosk_action("open_card_payment", "", 0, "")
+                            reply = "신용/체크카드 결제로 안내해 드릴게요."
+                            t_tts = time.time()
+                            play_tts_blocking(reply, r_headers)
+                            t_after_tts = time.time()
+                            t_end = time.time()
+                            timings = {
+                                "nlu": (t_nlu - t_start),
+                                "logic": 0.0,
+                                "actions": 0.0,
+                                "tts": (t_after_tts - t_tts),
+                                "total": (t_end - t_start),
+                            }
+                            print(f"⏱️ [Timing] NLU {timings['nlu']:.3f}s | Logic {timings['logic']:.3f}s | Actions {timings['actions']:.3f}s | TTS {timings['tts']:.3f}s | Total {timings['total']:.3f}s")
+                            continue
                     
                     top = get_recent_top_menus(os.path.join(current_dir, "order_logs.json"))
                     t_logic = time.time()
+                    was_awaiting = order_state.awaiting_confirmation
                     try:
                         reply, acts = handle_with_classifier(txt, cls, r_headers, top)
                     except Exception as e:
@@ -1600,7 +1651,13 @@ async def audio_loop_async():
                     if acts:
                         for a in acts:
                             send_kiosk_action(a["type"], a["menu_name"], a["quantity"], a["temperature"])
-                    checkout_requested = _contains_any(txt, CHECKOUT_HINTS) and not order_state.awaiting_confirmation
+                    checkout_requested = (
+                        _contains_any(txt, CHECKOUT_HINTS)
+                        and not order_state.awaiting_confirmation
+                        and not was_awaiting
+                    )
+                    if intent == "confirm" and not order_state.awaiting_confirmation and not was_awaiting:
+                        checkout_requested = True
                     if checkout_requested:
                         send_kiosk_action("checkout_request", "", 0, "")
 
