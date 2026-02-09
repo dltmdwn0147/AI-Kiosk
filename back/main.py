@@ -1,11 +1,3 @@
-"""
-[Project: AI Kiosk - Final Complete Integrated Version]
-* Feature 1: Face/Emotion/Known-User Detection (Camera)
-* Feature 2: Session Management (Auto Start/Stop)
-* Feature 3: Dynamic Greeting based on Emotion (LLM)
-* Feature 4: Full Voice Order System (STT/NLU/TTS)
-"""
-
 import socket
 import asyncio
 import os
@@ -90,6 +82,10 @@ emotion_data_lock = threading.Lock()
 age_data_lock = threading.Lock()
 latest_age_value = None
 latest_age_group = ""
+age_window = []
+# 연령대 최빈값 집계 윈도우(초) - 최근 몇 초를 기준으로 연령대 고정
+AGE_WINDOW_SEC = 10.0
+last_age_printed = ""
 
 # 시스템 상태
 kiosk_socket = None
@@ -123,9 +119,11 @@ EMOTION_ISSUE_SEC = 2.0          # 부정 감정 유지 시간 기준(초)
 EMOTION_PROMPT_COOLDOWN_SEC = 15.0  # 감정 확인 멘트 재생 최소 간격(초)
 
 # 연령 추정 모델
-AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_model_epoch_10.pt"))
+AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_decade_model_batch16_epochs10.pt"))
 age_model = None
 age_transform = None
+age_model_out_features = 1
+AGE_MODEL_MODE = os.getenv("AGE_MODEL_MODE", "decade")
 
 # ==========================================
 # [3. 상수 데이터 (힌트)]
@@ -491,16 +489,18 @@ def _is_known_face(face_data: list, threshold: float = 0.01) -> bool:
     return False
 
 def _load_age_model():
-    global age_model, age_transform
+    global age_model, age_transform, age_model_out_features
     if not TORCH_AVAILABLE:
         return
     if not os.path.exists(AGE_MODEL_PATH):
         print(f"⚠️ 연령 모델 파일 없음: {AGE_MODEL_PATH}")
         return
     model = models.resnet50(weights=None)
-    model.fc = torch.nn.Linear(model.fc.in_features, 1)
     ckpt = torch.load(AGE_MODEL_PATH, map_location="cpu")
     state = ckpt["model"] if isinstance(ckpt, dict) and "model" in ckpt else ckpt
+    fc_weight = state.get("fc.weight")
+    age_model_out_features = 1 if fc_weight is None else fc_weight.shape[0]
+    model.fc = torch.nn.Linear(model.fc.in_features, age_model_out_features)
     model.load_state_dict(state)
     model.eval()
     age_model = model
@@ -520,8 +520,12 @@ def _predict_age_group(face_crop_bgr: np.ndarray):
     pil = Image.fromarray(img_rgb)
     x = age_transform(pil).unsqueeze(0)
     with torch.no_grad():
-        pred = age_model(x).squeeze().item()
-    age = max(0, pred)
+        pred = age_model(x)
+    if AGE_MODEL_MODE == "decade" or age_model_out_features > 1:
+        cls = int(pred.argmax(dim=1).item())
+        group = cls * 10
+        return float(group), f"{group}대"
+    age = max(0.0, pred.squeeze().item())
     group = int(age // 10) * 10
     return age, f"{group}대"
 
@@ -962,6 +966,21 @@ def _age_pref_prompt():
         return "10대는 카페인 음료보다 논카페인(차/주스/스무디)을 우선 추천한다."
     return ""
 
+def _age_based_reco_adjust(include_categories, exclude_categories):
+    # 최소한의 안전장치만 적용 (프롬프트 우선)
+    with age_data_lock:
+        age_group = latest_age_group
+    if not age_group:
+        return include_categories, exclude_categories
+    try:
+        decade = int(age_group.replace("대", ""))
+    except Exception:
+        return include_categories, exclude_categories
+    # 40대 이상일 때만 'tea'를 우선 포함하고 나머지는 강제 제외하지 않음
+    if decade >= 40 and not include_categories:
+        include_categories = ["tea"]
+    return include_categories, exclude_categories
+
 def recommend_from_catalog(user_text, cls, top_menus):
     try:
         if not menu_catalog or not menu_catalog.menus:
@@ -999,6 +1018,7 @@ def recommend_from_catalog(user_text, cls, top_menus):
         temperature = constraints.get("temperature", "ANY")
         count = int(constraints.get("count", 3) or 3)
         last_recos = set(order_state.last_recommendations or [])
+        include_categories, exclude_categories = _age_based_reco_adjust(include_categories, exclude_categories)
         if not include_categories and desired_category in ["dessert", "drink"]:
             include_categories = ["dessert", "bakery"] if desired_category == "dessert" else ["coffee", "latte", "smoothie", "ade", "frappe", "tea", "etc"]
 
@@ -1239,7 +1259,7 @@ def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_me
 # ==========================================
 def camera_loop_main():
     global latest_face_data, latest_emotion_data, latest_face_count, is_running, last_face_detected_ts, session_face_cache, session_face_ts, pending_face_grace_ts
-    global latest_age_value, latest_age_group
+    global latest_age_value, latest_age_group, age_window, last_age_printed
     cap = cv2.VideoCapture(0)
     if not cap.isOpened(): return
 
@@ -1302,15 +1322,21 @@ def camera_loop_main():
                             if TORCH_AVAILABLE and age_model is not None and i == 0:
                                 try:
                                     face_crop_bgr = image[bbox[1]:bbox[1]+bbox[3], bbox[0]:bbox[0]+bbox[2]]
-                                    age_val, age_group = _predict_age_group(face_crop_bgr)
+                                    _, age_group = _predict_age_group(face_crop_bgr)
                                     if age_group:
-                                        with age_data_lock:
-                                            latest_age_value = age_val
-                                            latest_age_group = age_group
                                         now_ts = time.time()
-                                        if now_ts - age_last_print_ts > 1.0:
-                                            age_last_print_ts = now_ts
-                                            print(f"🧓 [Age] {age_group} (예측 {age_val:.1f})")
+                                        with age_data_lock:
+                                            latest_age_group = age_group
+                                            age_window.append((now_ts, age_group))
+                                            cutoff = now_ts - AGE_WINDOW_SEC
+                                            age_window = [(ts, g) for ts, g in age_window if ts >= cutoff]
+                                            counts = {}
+                                            for _, g in age_window:
+                                                counts[g] = counts.get(g, 0) + 1
+                                            latest_age_group = max(counts, key=counts.get) if counts else age_group
+                                        if latest_age_group != last_age_printed:
+                                            last_age_printed = latest_age_group
+                                            print(f"🧓 [Age] {latest_age_group}")
                                 except Exception:
                                     pass
 
@@ -1467,7 +1493,7 @@ async def audio_loop_async():
                     threading.Thread(target=play_tts_blocking, args=(prompt, r_headers), daemon=True).start()
 
             # [세션 종료 - 얼굴 유예 처리]
-            elif is_in_session and (now - last_face_detected_ts > SESSION_TIMEOUT_SEC):
+            if is_in_session and (now - last_face_detected_ts > SESSION_TIMEOUT_SEC):
                 if pending_face_grace_ts == 0.0:
                     pending_face_grace_ts = now
                 # 주문 진행 여부에 따라 유예 시간을 다르게 적용
