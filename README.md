@@ -15,6 +15,16 @@ OpenAI **Realtime API**를 활용하여 초저지연(Low Latency) 음성 대화�
 
 ---
 
+## ⚠️ Prototype Limitations (프로토타입 한계)
+
+본 프로젝트는 **프로토타입 단계**의 결과물입니다. 따라서 일부 기능은 UI/기능 측면에서 완전하지 않을 수 있습니다.
+
+- **메뉴 옵션 설정 화면**에서 글자(폰트) 표시 문제가 발생할 수 있습니다.
+- **결제 방식** 중 신용/체크카드를 제외한 결제 UI는 폰트 표시 또는 동작이 완전하지 않을 수 있습니다.
+- **AI 키오스크 기능**(음성 대화/의도 분석/추천 등)은 개발 중인 기능으로, 환경 설정 또는 모델 상태에 따라 사용이 제한될 수 있습니다.
+
+---
+
 ## 🛠️ Tech Stack (기술 스택)
 
 ### 🖥️ Backend (AI Core Server)
@@ -44,25 +54,25 @@ OpenAI **Realtime API**를 활용하여 초저지연(Low Latency) 음성 대화�
 
 ```mermaid
 graph TD
-    User((User/Guest)) -->|Voice| Mic[Microphone]
+    User((User)) -->|Voice| Mic[Microphone]
     User -->|Face| Cam[Webcam]
-    
-    subgraph "AI Kiosk Server (Python)"
+
+    subgraph AI_Kiosk_Server_Python
         direction TB
         Mic -->|Audio Stream| AsyncLoop[Asyncio Audio Loop]
         AsyncLoop <-->|Realtime API WebSocket| OpenAI[OpenAI Realtime]
-        
+
         Cam -->|Video Frame| CVThread[Camera Thread]
         CVThread -->|Face Landmarks| GlobalData[(Shared Memory)]
         CVThread -->|Face Crop| AgeModel[Age Model ResNet50]
         AgeModel -->|Age Group| GlobalData
-        
-        OpenAI -->|NLU 판단| OrderFunc[order_control]
+
+        OpenAI -->|NLU| OrderFunc[order_control]
         OrderFunc -->|Read| GlobalData
-        OrderFunc -->|Age Based Recommend| OpenAI
-        OrderFunc -->|Save 결제확인| LogFile[order_logs.json]
+        OrderFunc -->|Age Recommend| OpenAI
+        OrderFunc -->|Save on Checkout| LogFile[order_logs.json]
     end
-    
+
     OrderFunc -->|Socket Signal| KioskClient[PyQt Kiosk Client]
     KioskClient -->|Display| Screen[Kiosk Screen]
 ```
