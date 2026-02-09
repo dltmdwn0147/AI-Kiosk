@@ -278,4 +278,3 @@ AI-Kiosk/
 - [OpenAI API 문서](https://platform.openai.com/docs/api-reference)
 - [PyQt5 공식 문서](https://www.riverbankcomputing.com/static/Docs/PyQt5/)
 - [Python Asyncio 가이드](https://docs.python.org/3/library/asyncio.html)
-
