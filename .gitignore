@@ -41,3 +41,4 @@ back/face_age/
 # 프로젝트 특정 파일
 back/age_model_batch_8_epochs_10.pt
 back/age_*.pt
+!back/age_decade_model_batch32_epochs100.pt

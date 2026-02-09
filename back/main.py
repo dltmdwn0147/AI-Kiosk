@@ -119,7 +119,7 @@ EMOTION_ISSUE_SEC = 2.0          # 부정 감정 유지 시간 기준(초)
 EMOTION_PROMPT_COOLDOWN_SEC = 15.0  # 감정 확인 멘트 재생 최소 간격(초)
 
 # 연령 추정 모델
-AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_decade_model_batch16_epochs10.pt"))
+AGE_MODEL_PATH = os.getenv("AGE_MODEL_PATH", os.path.join(current_dir, "age_decade_model_batch32_epochs100.pt"))
 age_model = None
 age_transform = None
 age_model_out_features = 1
