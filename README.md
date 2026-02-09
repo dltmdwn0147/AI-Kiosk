@@ -211,6 +211,17 @@ python mega_kiosk_ver1.py
 2. **그 다음 Frontend 클라이언트를 실행** (`front/mega_kiosk_ver1.py`)
 3. Frontend는 자동으로 `127.0.0.1:9999` 포트로 Backend에 연결됩니다
 
+#### UI 크기/폰트 조절 실행 (권장)
+macOS에서 화면 크기와 폰트 문제를 피하려면 아래 실행어를 사용하세요.
+
+```bash
+cd front
+QT_SCALE_FACTOR=0.8 KIOSK_USE_DEFAULT_FONT=1 python mega_kiosk_ver1.py
+```
+
+- `QT_SCALE_FACTOR`: 화면 축소/확대 (예: 0.7, 0.8, 0.9)
+- `KIOSK_USE_DEFAULT_FONT=1`: 기본 폰트 강제 적용
+
 ---
 
 ### 🔧 Troubleshooting (문제 해결)
@@ -229,6 +240,19 @@ pip install pyaudio
 #### 2. OpenCV (cv2) 웹캠 접근 오류
 - 웹캠이 다른 프로그램에서 사용 중인지 확인
 - 시스템 권한 설정에서 카메라 접근 권한 허용
+
+#### 2-1. Pretendard 폰트 설치 (macOS)
+메뉴 이름/옵션 UI의 한글 표시 문제를 줄이기 위해 Pretendard 폰트 설치를 권장합니다.
+
+1) Pretendard 최신 릴리즈 ZIP 다운로드  
+2) 압축 해제 후 아래 폴더의 폰트(.ttf 또는 .otf) 설치  
+
+추천 경로:
+- `public/static/` 내 `.otf` 파일 또는
+- `public/alternative/` 내 `.ttf` 파일
+
+설치 방법:
+- macOS 폰트북(Font Book)으로 폰트 파일을 열고 **설치** 클릭
 
 #### 3. OpenAI API 연결 실패
 - `.env` 파일에 올바른 API 키가 입력되었는지 확인

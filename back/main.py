@@ -113,6 +113,7 @@ tts_stop_event = threading.Event()
 known_faces_cache = {"faces": [], "ts": 0.0}
 last_action_ts = 0.0      # 마지막 키오스크 액션 시각
 last_action_summary = ""  # 마지막 키오스크 액션 요약
+cart_state = {}           # 장바구니 상태 캐시 {(menu_name, temp): {"menu_name","temperature","quantity","price"}}
 last_emotion_label = ""   # 최근 감정 라벨
 negative_emotion_start_ts = 0.0  # 부정 감정 지속 시작 시각
 last_emotion_prompt_ts = 0.0     # 감정 기반 오류 확인 멘트 출력 시각
@@ -184,7 +185,7 @@ def _should_process_utterance(text: str, intent: str) -> bool:
     if order_state.awaiting_confirmation:
         if _contains_any(text, YES_HINTS) or _contains_any(text, NO_HINTS):
             return True
-    if intent in ["order", "price", "recommend", "confirm", "cancel", "reset", "increase", "decrease", "remove_item", "update_order"]:
+    if intent in ["order", "price", "total_price", "list_order", "recommend", "confirm", "cancel", "reset", "increase", "decrease", "remove_item", "update_order"]:
         return True
     return _has_kiosk_keywords(text)
 
@@ -375,6 +376,7 @@ def get_recent_top_menus_for_face(face_data: list, file_path: str, top_k: int = 
 def send_kiosk_action(action_type: str, menu_name: str, quantity: int = 1, temperature: str = ""):
     if not action_type: return
     payload = json.dumps({"type": action_type, "menu_name": menu_name, "quantity": int(quantity or 1), "temperature": temperature or ""}, ensure_ascii=False)
+    _update_cart_state(action_type, menu_name, int(quantity or 1), temperature or "")
     # 주문 활동 타임스탬프 갱신 (세션 유예 판단용)
     if action_type in ["add", "inc", "dec", "set", "checkout_request"]:
         global last_order_activity_ts
@@ -419,6 +421,52 @@ def _format_checkout_summary(items: list) -> str:
         return "주문 내역이 비어 있어요. 다시 주문해 주세요."
     return "주문하신 내역은 " + ", ".join(parts) + " 맞으실까요?"
 
+def _update_cart_state(action_type: str, menu_name: str, quantity: int, temperature: str):
+    if action_type in ["reset", "checkout_confirm", "checkout_cancel"]:
+        cart_state.clear()
+        return
+    if action_type not in ["add", "inc", "dec", "set", "remove"]:
+        return
+    if not menu_name:
+        return
+    key = (menu_name, temperature or "")
+    item = cart_state.get(key, {"menu_name": menu_name, "temperature": temperature or "", "quantity": 0, "price": 0})
+    if item["price"] == 0 and menu_catalog:
+        resolved, _, _ = menu_catalog.resolve_menu_with_temp(menu_name, temperature or "")
+        if resolved:
+            item["price"] = int(resolved.get("menu_price", 0) or 0)
+    if action_type == "add" or action_type == "inc":
+        item["quantity"] = int(item.get("quantity", 0)) + int(quantity or 1)
+    elif action_type == "dec":
+        item["quantity"] = int(item.get("quantity", 0)) - int(quantity or 1)
+    elif action_type == "set":
+        item["quantity"] = int(quantity or 1)
+    elif action_type == "remove":
+        item["quantity"] = 0
+    if item["quantity"] <= 0:
+        cart_state.pop(key, None)
+    else:
+        cart_state[key] = item
+
+def _sync_cart_from_items(items: list):
+    cart_state.clear()
+    for it in items:
+        name = str(it.get("menu_name", "")).strip()
+        if not name:
+            continue
+        qty = int(it.get("quantity", 1) or 1)
+        raw_price = str(it.get("price", "")).strip()
+        price_digits = re.sub(r"[^0-9]", "", raw_price)
+        price = int(price_digits) if price_digits else int(it.get("price", 0) or 0)
+        key = (name, "")
+        cart_state[key] = {"menu_name": name, "temperature": "", "quantity": qty, "price": price}
+
+def _get_cart_total_price() -> int:
+    total = 0
+    for item in cart_state.values():
+        total += int(item.get("price", 0) or 0) * int(item.get("quantity", 0) or 0)
+    return total
+
 def kiosk_listener_thread(conn, addr):
     global kiosk_socket, awaiting_payment_method
     buffer = ""
@@ -444,6 +492,7 @@ def kiosk_listener_thread(conn, addr):
                     if isinstance(items, list):
                         checkout_state["items"] = items
                         checkout_state["ts"] = time.time()
+                        _sync_cart_from_items(items)
                         global last_order_activity_ts
                         last_order_activity_ts = time.time()
                         order_state.awaiting_confirmation = True
@@ -461,6 +510,7 @@ def kiosk_listener_thread(conn, addr):
                     order_state.awaiting_confirmation = False
                     order_state.confirmation_ts = 0.0
                     awaiting_payment_method = False
+                    cart_state.clear()
     except Exception:
         pass
     finally:
@@ -571,6 +621,25 @@ class MenuCatalog:
     def _get_menu_price(self, menu):
         return menu.get("menu_price", 0)
 
+    def resolve_menu_with_temp(self, user_query: str, temperature: str):
+        if not user_query:
+            return None, "", []
+        temp = (temperature or "").upper()
+        norm = _normalize_text(user_query)
+        candidates = self._name_index.get(norm, [])
+        if not candidates:
+            clean = norm
+            for p in ["아이스", "핫", "따뜻한", "시원한", "차가운", "hot", "ice"]:
+                clean = clean.replace(_normalize_text(p), "")
+            candidates = self._name_index.get(clean, [])
+        if temp in ["HOT", "ICE"] and candidates:
+            for m in candidates:
+                if str(m.get("menu_temperature", "")).upper() == temp:
+                    return m, "", []
+        if candidates:
+            return candidates[0], "", []
+        return None, "menu", []
+
 class OrderState:
     def __init__(self): self.reset()
     def reset(self):
@@ -644,7 +713,7 @@ def classify_text(user_text: str, rest_headers: dict):
     schema = {
         "type": "object",
         "properties": {
-            "intent": {"type": "string", "enum": ["order", "price", "recommend", "confirm", "cancel", "reset", "chitchat", "increase", "decrease", "remove_item", "update_order", "unknown"]},
+            "intent": {"type": "string", "enum": ["order", "price", "total_price", "list_order", "recommend", "confirm", "cancel", "reset", "chitchat", "increase", "decrease", "remove_item", "update_order", "unknown"]},
             "order_items": {
                 "type": "array",
                 "items": {
@@ -668,9 +737,12 @@ def classify_text(user_text: str, rest_headers: dict):
         "1. order: 신규 주문 ('~담아줘', '카푸치노 하나')\n"
         "2. update_order: 정정/변경 ('~로 바꿔줘')\n"
         "3. increase/decrease/remove_item: 추가/감소/삭제\n"
-        "4. price/recommend/chitchat/confirm/cancel\n"
-        "5. temperature: HOT/ICE/ANY (모르면 ANY)\n"
-        "6. order_items: 언급된 모든 메뉴 추출.\n"
+        "4. price: 특정 메뉴 가격 문의\n"
+        "5. total_price: 장바구니 전체 금액 문의\n"
+        "6. list_order: 현재 장바구니 메뉴/수량 문의\n"
+        "7. recommend/chitchat/confirm/cancel\n"
+        "8. temperature: HOT/ICE/ANY (모르면 ANY)\n"
+        "9. order_items: 언급된 모든 메뉴 추출.\n"
     )
     payload = {
         "model": CLASSIFIER_MODEL,
@@ -704,6 +776,39 @@ def answer_price(user_text: str, cls: dict):
     order_state.last_suggested_menu = resolved.get("menu_name", "")
     price = resolved.get("menu_price", 0)
     return f"{resolved['menu_name']} 가격은 {price}원 입니다.", []
+
+def answer_total_price():
+    total = _get_cart_total_price()
+    if total <= 0:
+        return "현재 장바구니가 비어 있어요.", []
+    return f"현재 주문하신 메뉴의 총 가격은 {total}원 입니다.", []
+
+def _detect_total_price_query(text: str) -> bool:
+    t = str(text)
+    hints = ["총 가격", "총가격", "합계", "전체 가격", "총액", "총 금액", "결제 금액", "결제금액"]
+    return any(h in t for h in hints)
+
+def _detect_list_order_query(text: str) -> bool:
+    t = str(text)
+    hints = ["뭐뭐", "뭐 있어", "뭐있", "주문한 메뉴", "장바구니", "내역", "목록", "담긴 메뉴"]
+    return any(h in t for h in hints)
+
+def answer_order_list():
+    if not cart_state:
+        return "현재 장바구니가 비어 있어요.", []
+    parts = []
+    for item in cart_state.values():
+        name = item.get("menu_name", "")
+        qty = int(item.get("quantity", 0) or 0)
+        temp = item.get("temperature", "")
+        if name and qty > 0:
+            label = f"{name}"
+            if temp:
+                label = f"{temp} {label}"
+            parts.append(f"{label} {qty}잔")
+    if not parts:
+        return "현재 장바구니가 비어 있어요.", []
+    return "현재 주문하신 메뉴는 " + ", ".join(parts) + " 입니다.", []
 
 def _tokenize_query(text: str) -> set:
     tokens = re.findall(r"[가-힣]+|[a-z0-9]+", str(text).lower())
@@ -1124,6 +1229,14 @@ def recommend_from_catalog(user_text, cls, top_menus):
 def handle_with_classifier(user_text: str, cls: dict, rest_headers: dict, top_menus: list):
     intent = cls.get("intent", "unknown")
     order_items = cls.get("order_items", [])
+
+    # [0-0] 총 가격 문의
+    if intent == "total_price" or _detect_total_price_query(user_text):
+        return answer_total_price()
+
+    # [0-0-1] 주문 목록 문의
+    if intent == "list_order" or _detect_list_order_query(user_text):
+        return answer_order_list()
 
     # [0-1] 디카페인 메뉴 존재 여부 질문은 짧게 응답
     if "디카페인" in str(user_text) and intent in ["chitchat", "price", "recommend", "unknown"]:
