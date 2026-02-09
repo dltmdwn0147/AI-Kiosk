@@ -244,7 +244,7 @@ AI-Kiosk/
 │   ├── menu_categories.json  # 메뉴 카테고리 캐시 (빌드 필요)
 │   ├── menu_subcategories.json # 메뉴 서브카테고리 캐시 (빌드 필요)
 │   ├── face_landmarker.task  # Face Landmarker 모델 (다운로드 필요)
-│   ├── excel_to_JSON.py      # 엑셀 → JSON 변환 스크립트
+│   └── excel_to_JSON.py      # 엑셀 → JSON 변환 스크립트
 │
 ├── front/                   # Frontend 키오스크 클라이언트
 │   ├── mega_kiosk_ver1.py   # 메인 UI 실행 파일 (PyQt5)
