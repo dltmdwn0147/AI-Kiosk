@@ -72,6 +72,8 @@ RECOMMEND_COUNT = 3
 SESSION_TIMEOUT_SEC = 5.0
 ALLOW_BARGE_IN = False # 끼어들기 가능 : True, 불가능 : False
 FACE_AUDIO_WINDOW_SEC = 1.0 # 얼굴 감지 후 음성 입력 허용 윈도우(초)
+SEMANTIC_MATCH_MIN_SCORE = float(os.getenv("SEMANTIC_MATCH_MIN_SCORE", "0.78"))
+SEMANTIC_MATCH_TOP_K = int(os.getenv("SEMANTIC_MATCH_TOP_K", "3"))
 
 # 얼굴/감정 상태
 latest_face_data = None
@@ -616,6 +618,9 @@ class MenuCatalog:
         for db_name, menus in self._name_index.items():
             if (clean and clean in db_name) or (db_name in clean):
                 return menus[0], "", []
+        semantic = _semantic_match_menu(user_query, "")
+        if semantic:
+            return semantic, "", []
         return None, "menu", []
 
     def _get_menu_price(self, menu):
@@ -638,6 +643,9 @@ class MenuCatalog:
                     return m, "", []
         if candidates:
             return candidates[0], "", []
+        semantic = _semantic_match_menu(user_query, temp)
+        if semantic:
+            return semantic, "", []
         return None, "menu", []
 
 class OrderState:
@@ -840,6 +848,55 @@ def _temperature_hint(text: str) -> str:
     if any(k in text for k in ["아이스", "차가", "시원", "ice"]): return "ICE"
     if any(k in text for k in ["핫", "따뜻", "뜨거", "hot"]): return "HOT"
     return ""
+
+def _semantic_match_menu(user_query: str, temperature: str = ""):
+    if not user_query or not menu_catalog:
+        return None
+    if not rest_headers:
+        return None
+    tokens = _expand_tokens(_tokenize_query(user_query))
+    if not tokens and len(str(user_query).strip()) < 4:
+        return None
+    cache_path = os.path.join(current_dir, "menu_embeddings.json")
+    cache = _load_menu_embedding_cache(cache_path)
+    if not cache or not cache.get("items"):
+        return None
+    try:
+        query_vec = _embed_text(user_query, rest_headers)
+    except Exception:
+        return None
+    desired_cat = _intent_category_from_text(user_query)
+    subcat_path = os.path.join(current_dir, "menu_subcategories.json")
+    subcat_cache = _load_menu_subcategory_cache(subcat_path) or {"items": []}
+    subcat_map = {it.get("menu_name"): it.get("subcategory") for it in subcat_cache.get("items", [])}
+    desc_map = {str(m.get("menu_name", "")).strip(): str(m.get("menu_description", "")).strip() for m in (menu_catalog.menus or [])}
+
+    scored = []
+    for item in cache.get("items", []):
+        name = item.get("menu_name", "")
+        temp = str(item.get("menu_temperature", "")).upper()
+        if temperature and temperature != "ANY" and temp and temp != temperature:
+            continue
+        if desired_cat and subcat_map.get(name) and subcat_map.get(name) != desired_cat:
+            continue
+        sim = _cos_sim(query_vec, item.get("embedding", []))
+        boost = 0.0
+        if tokens:
+            blob = f"{name} {desc_map.get(name, '')}".lower()
+            overlap = sum(1 for t in tokens if t in blob)
+            if overlap:
+                boost = min(0.05, 0.01 * overlap)
+        scored.append((sim + boost, name))
+
+    if not scored:
+        return None
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top = scored[:max(1, SEMANTIC_MATCH_TOP_K)]
+    best_score, best_name = top[0]
+    if best_score < SEMANTIC_MATCH_MIN_SCORE:
+        return None
+    resolved, _, _ = menu_catalog.resolve_menu_with_temp(best_name, temperature or "")
+    return resolved
 
 def _is_negative_emotion(emotion: str) -> bool:
     e = str(emotion or "").lower()
@@ -1198,6 +1255,12 @@ def recommend_from_catalog(user_text, cls, top_menus):
             scored.append((sim, name))
 
         scored.sort(key=lambda x: x[0], reverse=True)
+        if scored and len(_tokenize_query(user_text)) >= 2:
+            best_sim, best_name = scored[0]
+            if best_sim >= (SEMANTIC_MATCH_MIN_SCORE + 0.07):
+                order_state.last_suggested_menu = best_name
+                order_state.last_recommendations = [best_name]
+                return f"가장 비슷한 메뉴는 {best_name} 입니다.", []
         names = []
         seen = set()
         decaf_used = 0
